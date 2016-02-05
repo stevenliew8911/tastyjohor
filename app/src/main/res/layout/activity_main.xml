@@ -53,7 +53,9 @@
                         android:text="Me"
                         android:textAllCaps="false"
                         android:textColor="#646464"
-                        android:textSize="12sp" />
+                        android:textSize="12sp"
+                        android:id="@+id/btn_me"
+                        />
 
                     <Button
                         style="?android:attr/borderlessButtonStyle"
@@ -72,7 +74,8 @@
                         android:text="My Collection"
                         android:textAllCaps="false"
                         android:textColor="#646464"
-                        android:textSize="12sp" />
+                        android:textSize="12sp"
+                        android:id="@+id/btn_collection"/>
 
                     <Button
                         style="?android:attr/borderlessButtonStyle"
@@ -91,7 +94,8 @@
                         android:text="Saved"
                         android:textAllCaps="false"
                         android:textColor="#646464"
-                        android:textSize="12sp" />
+                        android:textSize="12sp"
+                        android:id="@+id/btn_saved"/>
 
                     <TextView
                         android:layout_width="match_parent"
@@ -127,7 +131,8 @@
                         android:text="Home"
                         android:textAllCaps="false"
                         android:textColor="#646464"
-                        android:textSize="12sp" />
+                        android:textSize="12sp"
+                        android:id="@+id/btn_home"/>
 
                     <Button
                         style="?android:attr/borderlessButtonStyle"
@@ -146,7 +151,8 @@
                         android:text="Nearby"
                         android:textAllCaps="false"
                         android:textColor="#646464"
-                        android:textSize="12sp" />
+                        android:textSize="12sp"
+                        android:id="@+id/btn_nearby"/>
 
                     <Button
                         style="?android:attr/borderlessButtonStyle"
@@ -165,7 +171,8 @@
                         android:text="Redeem"
                         android:textAllCaps="false"
                         android:textColor="#646464"
-                        android:textSize="12sp" />
+                        android:textSize="12sp"
+                        android:id="@+id/btn_redeem"/>
 
                     <Button
                         style="?android:attr/borderlessButtonStyle"
@@ -184,7 +191,8 @@
                         android:text="Products"
                         android:textAllCaps="false"
                         android:textColor="#646464"
-                        android:textSize="12sp" />
+                        android:textSize="12sp"
+                        android:id="@+id/btn_products"/>
 
                     <TextView
                         android:layout_width="match_parent"
@@ -220,7 +228,8 @@
                         android:text="About Us"
                         android:textAllCaps="false"
                         android:textColor="#646464"
-                        android:textSize="12sp" />
+                        android:textSize="12sp"
+                        android:id="@+id/btn_aboutus"/>
 
                     <Button
                         style="?android:attr/borderlessButtonStyle"
@@ -239,7 +248,8 @@
                         android:text="Terms &amp; Conditions"
                         android:textAllCaps="false"
                         android:textColor="#646464"
-                        android:textSize="12sp" />
+                        android:textSize="12sp"
+                        android:id="@+id/btn_terms"/>
 
                     <Button
                         style="?android:attr/borderlessButtonStyle"
@@ -258,7 +268,8 @@
                         android:text="PDPA"
                         android:textAllCaps="false"
                         android:textColor="#646464"
-                        android:textSize="12sp" />
+                        android:textSize="12sp"
+                        android:id="@+id/btn_pdpa"/>
 
                     <Button
                         style="?android:attr/borderlessButtonStyle"
@@ -278,7 +289,8 @@
                         android:text="Rate this apps"
                         android:textAllCaps="false"
                         android:textColor="#646464"
-                        android:textSize="12sp" />
+                        android:textSize="12sp"
+                        android:id="@+id/btn_rate"/>
                 </LinearLayout>
             </ScrollView>
 
@@ -294,7 +306,8 @@
                 android:text="Share This Apps"
                 android:textAllCaps="false"
                 android:textColor="#ffffff"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:id="@+id/btn_share"/>
         </RelativeLayout>
 
     </android.support.design.widget.NavigationView>
