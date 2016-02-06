@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
         ArrayList<ListItem> listData = getListData();
 
         final ListView listView = (ListView) findViewById(R.id.content_list);
-        listView.setAdapter(new CustomListAdapterforcontent(this, listData));
+        listView.setAdapter(new ProductListAdapter(this, listData));
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
@@ -148,47 +148,17 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    class CustomListAdapter extends ArrayAdapter<String> {
 
-        Context context;
-        String[] nameList;
-        int[] imageList;
 
-        public CustomListAdapter(Context context, String[] nameList, int[] imageList) {
-            super(context, R.layout.list_view_nav_item, nameList);
-
-            this.context = context;
-            this.nameList = nameList;
-            this.imageList = imageList;
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
-            if (convertView == null) {
-                convertView = LayoutInflater.from(getContext()).inflate(R.layout.list_view_nav_item, parent, false);
-            }
-
-            ImageView imgView = (ImageView) convertView.findViewById(R.id.list_view_nav_img_view);
-            TextView txtView = (TextView) convertView.findViewById(R.id.list_view_nav_text_view);
-
-            imgView.setImageResource(imageList[position]);
-            txtView.setText(nameList[position]);
-
-            return convertView;
-        }
-    }
-
-    class CustomListAdapterforcontent extends BaseAdapter {
+    class ProductListAdapter extends BaseAdapter {
         private ArrayList<ListItem> listData;
         private LayoutInflater layoutInflater;
-        TextView headlineView;
-        TextView reporterNameView ;
-        TextView reportedDateView ;
-        ImageView imageView;
+        TextView TitleView;
+        TextView SubTitleView ;
+        TextView DateView ;
+        ImageView ImageUrlView,IconUrlView;
 
-        public CustomListAdapterforcontent(Context context, ArrayList listData) {
+        public ProductListAdapter(Context context, ArrayList listData) {
             this.listData = listData;
             layoutInflater = LayoutInflater.from(context);
         }
@@ -213,16 +183,22 @@ public class MainActivity extends AppCompatActivity {
             if (convertView == null) {
                 convertView = layoutInflater.inflate(R.layout.list_view_content_item, null);
 
-                headlineView = (TextView) convertView.findViewById(R.id.title);
-                reporterNameView = (TextView) convertView.findViewById(R.id.reporter);
-                reportedDateView = (TextView) convertView.findViewById(R.id.date);
-                imageView = (ImageView) convertView.findViewById(R.id.thumbImage);
+                TitleView = (TextView) convertView.findViewById(R.id.title);
+                SubTitleView = (TextView) convertView.findViewById(R.id.subtitle);
+                DateView = (TextView) convertView.findViewById(R.id.date);
+                ImageUrlView = (ImageView) convertView.findViewById(R.id.bgImage);
+                IconUrlView = (ImageView) convertView.findViewById(R.id.logoImage);
 
             }
             ListItem newsItem =  listData.get(position);
-            headlineView.setText(newsItem.getTitle());
-            reporterNameView.setText(newsItem.getSubTitle());
-            reportedDateView.setText(newsItem.getDate());
+            TitleView.setText(newsItem.getTitle());
+            TitleView.bringToFront();
+            SubTitleView.setText(newsItem.getSubTitle());
+            SubTitleView.bringToFront();
+            DateView.setText(newsItem.getDate());
+            DateView.bringToFront();
+            ImageUrlView.setBackgroundResource(R.drawable.taeyeon);
+            IconUrlView.setBackgroundResource(R.drawable.logolist);
            // imageView.setImageResource();
             return convertView;
         }
@@ -237,9 +213,15 @@ public class MainActivity extends AppCompatActivity {
         newsData.setTitle("hahaha");
         newsData.setSubTitle("WOWOW");
         newsData.setDate("1990");
-
         listMockData.add(newsData);
 
+        ListItem newsData2 = new ListItem();
+        newsData2.setImageUrl("ImageURL");
+        newsData2.setIconUrl("setIconURL");
+        newsData2.setTitle("hahaha");
+        newsData2.setSubTitle("WOWOW");
+        newsData2.setDate("1990");
+        listMockData.add(newsData2);
         return listMockData;
     }
 
