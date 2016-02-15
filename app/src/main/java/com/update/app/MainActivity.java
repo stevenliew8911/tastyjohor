@@ -1,8 +1,14 @@
 package com.update.app;
 
 import android.app.LauncherActivity;
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
+import android.os.StatFs;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -24,7 +30,14 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 public class MainActivity extends AppCompatActivity {
     Toolbar toolbarMain;
@@ -32,6 +45,12 @@ public class MainActivity extends AppCompatActivity {
     ImageButton imgBtnSearch;
     ImageView imgViewLogo;
     EditText editTextSeach;
+    ImageView ImageUrlView;
+    ImageView IconUrlView;
+    Bitmap thumbnail;
+    TextView NameView;
+    TextView HighLightView;
+    TextView StartDateView;
     Button btnme;
 
     private boolean isSearchOpened = false;
@@ -40,7 +59,16 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        try {
+            new GetEventsTask(getApplicationContext()).execute().get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
 
+
+        //  new UpdateItem(getApplicationContext()).execute();
 //        imgBtnSearch.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
@@ -85,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-        navlistitem();
+
 //        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
 //                this, drawer, toolbarMain, R.string.app_name, R.string.app_name);
 //        drawer.setDrawerListener(toggle);
@@ -94,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
 //        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view_main);
         //navigationView.setNavigationItemSelectedListener(this);
 
-        ArrayList<ListItem> listData = getListData();
+        ArrayList<ListItem> listData = GetEventsTask.listMockData;
 
         final ListView listView = (ListView) findViewById(R.id.content_list);
         listView.setAdapter(new ProductListAdapter(this, listData));
@@ -149,14 +177,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
     class ProductListAdapter extends BaseAdapter {
         private ArrayList<ListItem> listData;
         private LayoutInflater layoutInflater;
-        TextView TitleView;
-        TextView SubTitleView ;
-        TextView DateView ;
-        ImageView ImageUrlView,IconUrlView;
+
+
+        TextView EndDateView;
+
 
         public ProductListAdapter(Context context, ArrayList listData) {
             this.listData = listData;
@@ -183,64 +210,125 @@ public class MainActivity extends AppCompatActivity {
             if (convertView == null) {
                 convertView = layoutInflater.inflate(R.layout.list_view_content_item, null);
 
-                TitleView = (TextView) convertView.findViewById(R.id.title);
-                SubTitleView = (TextView) convertView.findViewById(R.id.subtitle);
-                DateView = (TextView) convertView.findViewById(R.id.date);
+                NameView = (TextView) convertView.findViewById(R.id.title);
+                HighLightView = (TextView) convertView.findViewById(R.id.subtitle);
+                StartDateView = (TextView) convertView.findViewById(R.id.date);
                 ImageUrlView = (ImageView) convertView.findViewById(R.id.bgImage);
                 IconUrlView = (ImageView) convertView.findViewById(R.id.logoImage);
 
             }
-            ListItem newsItem =  listData.get(position);
-            TitleView.setText(newsItem.getTitle());
-            TitleView.bringToFront();
-            SubTitleView.setText(newsItem.getSubTitle());
-            SubTitleView.bringToFront();
-            DateView.setText(newsItem.getDate());
-            DateView.bringToFront();
-            ImageUrlView.setBackgroundResource(R.drawable.taeyeon);
-            IconUrlView.setBackgroundResource(R.drawable.logolist);
-           // imageView.setImageResource();
+            ListItem newsItem = listData.get(position);
+            new DownloadImageTask(getApplicationContext(), ImageUrlView).execute(newsItem.getImageUrl());
+            new DownloadImageTask(getApplicationContext(), IconUrlView).execute(newsItem.getIconUrl());
+            NameView.setText(newsItem.getName());
+            NameView.bringToFront();
+            HighLightView.setText( newsItem.getHighLight());
+            HighLightView.bringToFront();
+            StartDateView.setText(newsItem.getStartDate());
+            StartDateView.bringToFront();
+
+            //  new DownloadText().execute(newsItem.getName(), newsItem.getHighLight(), newsItem.getStartDate(), newsItem.getImageUrl(), newsItem.getIconUrl());
+
+
+            //  ImageUrlView.setBackgroundResource(R.drawable.taeyeon);
+            //  new DownloadImage().execute(newsItem.getImageUrl());
+            //  new DownloadLogo().execute(newsItem.getIconUrl());
+
+            // Bitmap thumbnail =  NetworkUtil.getBitmapFromURL(newsItem.getIconUrl());
+            //  IconUrlView.setImageBitmap(thumbnail);
+            // new DownloadImage().execute(newsItem.getImageUrl());
+            // IconUrlView.setBackgroundResource(R.drawable.logolist);
+            // imageView.setImageResource();
             return convertView;
         }
     }
 
-    private ArrayList<ListItem> getListData() {
-        ArrayList<ListItem> listMockData = new ArrayList<ListItem>();
+    private class DownloadImageTask extends AsyncTask<String, Integer, Bitmap> {
 
-        ListItem newsData = new ListItem();
-        newsData.setImageUrl("ImageURL");
-        newsData.setIconUrl("setIconURL");
-        newsData.setTitle("hahaha");
-        newsData.setSubTitle("WOWOW");
-        newsData.setDate("1990");
-        listMockData.add(newsData);
+        ImageView imageView = null;
+        Context context = null;
 
-        ListItem newsData2 = new ListItem();
-        newsData2.setImageUrl("ImageURL");
-        newsData2.setIconUrl("setIconURL");
-        newsData2.setTitle("hahaha");
-        newsData2.setSubTitle("WOWOW");
-        newsData2.setDate("1990");
-        listMockData.add(newsData2);
-        return listMockData;
-    }
+        public DownloadImageTask(Context context, ImageView imageView) {
+            this.imageView = imageView;
+            this.context = context;
+        }
 
-
-
-
-
-
-
-    public void navlistitem()
-    {
-        btnme = (Button) findViewById(R.id.btn_me);
-        btnme.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                drawerLayoutMain.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+        @Override
+        protected Bitmap doInBackground(String... param) {
+            Log.i("xyz " + getClass().getSimpleName(), "doInBackground Called");
+            Bitmap bitmap = null;
+            if (param != null && param.length > 0) {
+                String url = param[0];
+                bitmap = NetworkUtil.getBitmapFromURL(url);
+                if (bitmap != null) {
+                    String tmpPath = url.replace("http://", "").replace("/", "");
+                    saveImageToInternalStorage(bitmap, tmpPath);
+                }
             }
-        });
+            return bitmap;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            Log.i("xyz " + getClass().getSimpleName(), "onPreExecute Called");
+        }
+
+        @Override
+        protected void onPostExecute(Bitmap result) {
+            Log.i("xyz " + getClass().getSimpleName(), "onPostExecute Called");
+            if (result != null) {
+                imageView.setImageBitmap(result);
+            }
+        }
+
+        private boolean saveImageToInternalStorage(Bitmap image, String imageName) {
+            boolean success = false;
+
+            File path = Environment.getDataDirectory();
+            StatFs stat = new StatFs(path.getPath());
+            long blockSize = stat.getBlockSize();
+            long availableBlocks = stat.getAvailableBlocks();
+            long bytesAvailable = blockSize * availableBlocks;
+            long megAvailable = bytesAvailable / (1024 * 1024);
+            Log.i("xyz " + getClass().getSimpleName() + "-saveImageToInternalStorage megAvailable : ", megAvailable + "");
+            if (megAvailable < 1) {
+                return false;
+            }
+
+            FileOutputStream fos = null;
+            try {
+                // Use the compress method on the Bitmap object to write image to the OutputStream
+                fos = context.openFileOutput(imageName, Context.MODE_PRIVATE);
+                // Writing the bitmap to the output stream
+                image.compress(Bitmap.CompressFormat.PNG, 100, fos);
+                success = true;
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } finally {
+                if (fos != null) {
+                    try {
+                        fos.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+            return success;
+        }
+
+
+
+
+        public void navlistitem() {
+            btnme = (Button) findViewById(R.id.btn_me);
+            btnme.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    drawerLayoutMain.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+                }
+            });
+        }
+
+
     }
-
-
 }

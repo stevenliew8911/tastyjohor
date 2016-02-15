@@ -5,46 +5,67 @@ package com.update.app;
  */
 public class ListItem {
 
-    private String title,subtitle;
-    private String date;
-    private String imageurl,iconurl;
+    private String Name;
+    private String StartDate;
+    private String EndDate;
+    private String Id;
+    private String HighLight;
+    private String ImageUrl;
+    private String IconUrl;
 
     public String getImageUrl() {
-        return imageurl;
+        return ImageUrl;
     }
 
-    public void setImageUrl(String imageurl) {
-        this.imageurl = imageurl;
+    public void setImageUrl(String ImageUrl) {
+        this.ImageUrl = ImageUrl;
     }
 
-    public String getTitle() {
-        return title;
+    public String getName() {
+        return Name;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setName(String Name) {
+        this.Name = Name;
+
     }
-    public String getSubTitle() {
-        return subtitle;
+    public String getId() {
+        return Id;
     }
 
-    public void setSubTitle(String subtitle) {
-        this.subtitle = subtitle;
+    public void setId(String Id) {
+        this.Id = Id;
+
     }
+
     public String getIconUrl() {
-        return iconurl;
+        return IconUrl;
     }
 
-    public void setIconUrl(String iconurl) {
-        this.iconurl = iconurl;
+    public void setIconUrl(String IconUrl) {
+        this.IconUrl = IconUrl;
     }
 
-    public String getDate() {
-        return date;
+    public String getStartDate() {
+        return StartDate;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setStartDate(String StartDate) {
+        this.StartDate = StartDate;
+    }
+    public String getEndDate() {
+        return EndDate;
+    }
+
+    public void setEndDate(String EndDate) {
+        this.EndDate = EndDate;
+    }
+    public String getHighLight() {
+        return HighLight;
+    }
+
+    public void setHighLight(String HighLight) {
+        this.HighLight = HighLight;
     }
 
     @Override
