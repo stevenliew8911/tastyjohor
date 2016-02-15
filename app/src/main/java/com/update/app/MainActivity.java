@@ -45,12 +45,9 @@ public class MainActivity extends AppCompatActivity {
     ImageButton imgBtnSearch;
     ImageView imgViewLogo;
     EditText editTextSeach;
-    ImageView ImageUrlView;
-    ImageView IconUrlView;
-    Bitmap thumbnail;
-    TextView NameView;
-    TextView HighLightView;
-    TextView StartDateView;
+    ListView listView;
+
+
     Button btnme;
 
     private boolean isSearchOpened = false;
@@ -60,7 +57,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         try {
-            new GetEventsTask(getApplicationContext()).execute().get();
+            listView = (ListView) findViewById(R.id.content_list);
+            new GetEventsTask(getApplicationContext(), listView).execute().get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
@@ -121,20 +119,6 @@ public class MainActivity extends AppCompatActivity {
 //
 //        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view_main);
         //navigationView.setNavigationItemSelectedListener(this);
-
-        ArrayList<ListItem> listData = GetEventsTask.listMockData;
-
-        final ListView listView = (ListView) findViewById(R.id.content_list);
-        listView.setAdapter(new ProductListAdapter(this, listData));
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-            @Override
-            public void onItemClick(AdapterView<?> a, View v, int position, long id) {
-                ListItem newsData = (ListItem) listView.getItemAtPosition(position);
-
-            }
-        });
-
     }
 
     public void imgBtnSearchClicked(View view) {
@@ -177,158 +161,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    class ProductListAdapter extends BaseAdapter {
-        private ArrayList<ListItem> listData;
-        private LayoutInflater layoutInflater;
-
-
-        TextView EndDateView;
-
-
-        public ProductListAdapter(Context context, ArrayList listData) {
-            this.listData = listData;
-            layoutInflater = LayoutInflater.from(context);
-        }
-
-        @Override
-        public int getCount() {
-            return listData.size();
-        }
-
-        @Override
-        public Object getItem(int position) {
-            return listData.get(position);
-        }
-
-        @Override
-        public long getItemId(int position) {
-            return position;
-        }
-
-        public View getView(int position, View convertView, ViewGroup parent) {
-
-            if (convertView == null) {
-                convertView = layoutInflater.inflate(R.layout.list_view_content_item, null);
-
-                NameView = (TextView) convertView.findViewById(R.id.title);
-                HighLightView = (TextView) convertView.findViewById(R.id.subtitle);
-                StartDateView = (TextView) convertView.findViewById(R.id.date);
-                ImageUrlView = (ImageView) convertView.findViewById(R.id.bgImage);
-                IconUrlView = (ImageView) convertView.findViewById(R.id.logoImage);
-
+    public void navlistitem() {
+        btnme = (Button) findViewById(R.id.btn_me);
+        btnme.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                drawerLayoutMain.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
             }
-            ListItem newsItem = listData.get(position);
-            new DownloadImageTask(getApplicationContext(), ImageUrlView).execute(newsItem.getImageUrl());
-            new DownloadImageTask(getApplicationContext(), IconUrlView).execute(newsItem.getIconUrl());
-            NameView.setText(newsItem.getName());
-            NameView.bringToFront();
-            HighLightView.setText( newsItem.getHighLight());
-            HighLightView.bringToFront();
-            StartDateView.setText(newsItem.getStartDate());
-            StartDateView.bringToFront();
-
-            //  new DownloadText().execute(newsItem.getName(), newsItem.getHighLight(), newsItem.getStartDate(), newsItem.getImageUrl(), newsItem.getIconUrl());
-
-
-            //  ImageUrlView.setBackgroundResource(R.drawable.taeyeon);
-            //  new DownloadImage().execute(newsItem.getImageUrl());
-            //  new DownloadLogo().execute(newsItem.getIconUrl());
-
-            // Bitmap thumbnail =  NetworkUtil.getBitmapFromURL(newsItem.getIconUrl());
-            //  IconUrlView.setImageBitmap(thumbnail);
-            // new DownloadImage().execute(newsItem.getImageUrl());
-            // IconUrlView.setBackgroundResource(R.drawable.logolist);
-            // imageView.setImageResource();
-            return convertView;
-        }
+        });
     }
 
-    private class DownloadImageTask extends AsyncTask<String, Integer, Bitmap> {
 
-        ImageView imageView = null;
-        Context context = null;
-
-        public DownloadImageTask(Context context, ImageView imageView) {
-            this.imageView = imageView;
-            this.context = context;
-        }
-
-        @Override
-        protected Bitmap doInBackground(String... param) {
-            Log.i("xyz " + getClass().getSimpleName(), "doInBackground Called");
-            Bitmap bitmap = null;
-            if (param != null && param.length > 0) {
-                String url = param[0];
-                bitmap = NetworkUtil.getBitmapFromURL(url);
-                if (bitmap != null) {
-                    String tmpPath = url.replace("http://", "").replace("/", "");
-                    saveImageToInternalStorage(bitmap, tmpPath);
-                }
-            }
-            return bitmap;
-        }
-
-        @Override
-        protected void onPreExecute() {
-            Log.i("xyz " + getClass().getSimpleName(), "onPreExecute Called");
-        }
-
-        @Override
-        protected void onPostExecute(Bitmap result) {
-            Log.i("xyz " + getClass().getSimpleName(), "onPostExecute Called");
-            if (result != null) {
-                imageView.setImageBitmap(result);
-            }
-        }
-
-        private boolean saveImageToInternalStorage(Bitmap image, String imageName) {
-            boolean success = false;
-
-            File path = Environment.getDataDirectory();
-            StatFs stat = new StatFs(path.getPath());
-            long blockSize = stat.getBlockSize();
-            long availableBlocks = stat.getAvailableBlocks();
-            long bytesAvailable = blockSize * availableBlocks;
-            long megAvailable = bytesAvailable / (1024 * 1024);
-            Log.i("xyz " + getClass().getSimpleName() + "-saveImageToInternalStorage megAvailable : ", megAvailable + "");
-            if (megAvailable < 1) {
-                return false;
-            }
-
-            FileOutputStream fos = null;
-            try {
-                // Use the compress method on the Bitmap object to write image to the OutputStream
-                fos = context.openFileOutput(imageName, Context.MODE_PRIVATE);
-                // Writing the bitmap to the output stream
-                image.compress(Bitmap.CompressFormat.PNG, 100, fos);
-                success = true;
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            } finally {
-                if (fos != null) {
-                    try {
-                        fos.close();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-            return success;
-        }
-
-
-
-
-        public void navlistitem() {
-            btnme = (Button) findViewById(R.id.btn_me);
-            btnme.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    drawerLayoutMain.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
-                }
-            });
-        }
-
-
-    }
 }
