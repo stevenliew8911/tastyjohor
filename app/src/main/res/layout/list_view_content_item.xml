@@ -12,7 +12,9 @@
         android:id="@+id/bgImage"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-      />
+        android:scaleType="fitXY"
+
+        />
     <TextView
         android:id="@+id/title"
         android:layout_width="wrap_content"
@@ -30,7 +32,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/subtitle"
-        android:layout_marginTop="80dp"
+        android:paddingTop="45dp"
         />
 
     <TextView
@@ -39,14 +41,14 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/bgImage"
         android:layout_toRightOf="@+id/logoImage"
-        android:layout_marginTop="20dp"
+        android:paddingTop="10dp"
         />
     <TextView
         android:layout_width="fill_parent"
         android:layout_below="@id/date"
         android:layout_height="10dp"
         android:background="#e5e5e5"
-        android:layout_marginTop="10dp"
+        android:paddingTop="10dp"
         />
 
 

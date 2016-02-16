@@ -54,6 +54,7 @@
                         android:textAllCaps="false"
                         android:textColor="#646464"
                         android:textSize="12sp"
+                        android:onClick="NavigationListClicked"
                         android:id="@+id/btn_me"
                         />
 
@@ -75,6 +76,7 @@
                         android:textAllCaps="false"
                         android:textColor="#646464"
                         android:textSize="12sp"
+                        android:onClick="NavigationListClicked"
                         android:id="@+id/btn_collection"/>
 
                     <Button
@@ -95,6 +97,7 @@
                         android:textAllCaps="false"
                         android:textColor="#646464"
                         android:textSize="12sp"
+                        android:onClick="NavigationListClicked"
                         android:id="@+id/btn_saved"/>
 
                     <TextView
@@ -132,6 +135,7 @@
                         android:textAllCaps="false"
                         android:textColor="#646464"
                         android:textSize="12sp"
+                        android:onClick="NavigationListClicked"
                         android:id="@+id/btn_home"/>
 
                     <Button
@@ -152,6 +156,7 @@
                         android:textAllCaps="false"
                         android:textColor="#646464"
                         android:textSize="12sp"
+                        android:onClick="NavigationListClicked"
                         android:id="@+id/btn_nearby"/>
 
                     <Button
@@ -172,6 +177,7 @@
                         android:textAllCaps="false"
                         android:textColor="#646464"
                         android:textSize="12sp"
+                        android:onClick="NavigationListClicked"
                         android:id="@+id/btn_redeem"/>
 
                     <Button
@@ -192,6 +198,7 @@
                         android:textAllCaps="false"
                         android:textColor="#646464"
                         android:textSize="12sp"
+                        android:onClick="NavigationListClicked"
                         android:id="@+id/btn_products"/>
 
                     <TextView
@@ -229,6 +236,7 @@
                         android:textAllCaps="false"
                         android:textColor="#646464"
                         android:textSize="12sp"
+                        android:onClick="NavigationListClicked"
                         android:id="@+id/btn_aboutus"/>
 
                     <Button
@@ -249,6 +257,7 @@
                         android:textAllCaps="false"
                         android:textColor="#646464"
                         android:textSize="12sp"
+                        android:onClick="NavigationListClicked"
                         android:id="@+id/btn_terms"/>
 
                     <Button
@@ -269,6 +278,7 @@
                         android:textAllCaps="false"
                         android:textColor="#646464"
                         android:textSize="12sp"
+                        android:onClick="NavigationListClicked"
                         android:id="@+id/btn_pdpa"/>
 
                     <Button
@@ -290,6 +300,7 @@
                         android:textAllCaps="false"
                         android:textColor="#646464"
                         android:textSize="12sp"
+                        android:onClick="NavigationListClicked"
                         android:id="@+id/btn_rate"/>
                 </LinearLayout>
             </ScrollView>
@@ -307,6 +318,7 @@
                 android:textAllCaps="false"
                 android:textColor="#ffffff"
                 android:textSize="16sp"
+                android:onClick="NavigationListClicked"
                 android:id="@+id/btn_share"/>
         </RelativeLayout>
 

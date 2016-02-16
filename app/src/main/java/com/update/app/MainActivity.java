@@ -1,8 +1,10 @@
 package com.update.app;
 
+import android.app.AlertDialog;
 import android.app.LauncherActivity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
@@ -39,16 +41,14 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity  {
     Toolbar toolbarMain;
     DrawerLayout drawerLayoutMain;
     ImageButton imgBtnSearch;
     ImageView imgViewLogo;
     EditText editTextSeach;
     ListView listView;
-
-
-    Button btnme;
+    Button btn_me,btn_collection,btn_saved,btn_home,btn_nearby,btn_redeem,btn_products,btn_aboutus,btn_terms,btn_pdpa,btn_rate,btn_share;
 
     private boolean isSearchOpened = false;
 
@@ -56,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         try {
             listView = (ListView) findViewById(R.id.content_list);
             new GetEventsTask(getApplicationContext(), listView).execute().get();
@@ -120,38 +121,101 @@ public class MainActivity extends AppCompatActivity {
 //        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view_main);
         //navigationView.setNavigationItemSelectedListener(this);
     }
+    public void PopOut()
+    {
+        new AlertDialog.Builder(this, AlertDialog.THEME_HOLO_DARK)
+                .setMessage("Coming Soon")
+                .setCancelable(false)
+                .setPositiveButton("",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                MainActivity.this.finish();
+                            }
+                        }).setNegativeButton("Close", null).show();
+    }
+    public void TopButtonClicked(View view)
+    {
+        if (view.getId() == R.id.btn_header_colors)
+        {
+            PopOut();
 
-    public void imgBtnSearchClicked(View view) {
-        Log.i("onClick", "onClick: " + isSearchOpened);
+        } else if (view.getId() == R.id.btn_header_cosmetic) {
+            PopOut();
 
-        if (isSearchOpened) { //test if the search is open
-
-            editTextSeach.setVisibility(View.INVISIBLE);
-            imgViewLogo.setVisibility(View.VISIBLE);
-
-            //hides the keyboard
-            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(editTextSeach.getWindowToken(), 0);
-
-            //add the search icon in the action bar
-            imgBtnSearch.setImageResource(R.drawable.ic_action_search);
-
-            // isSearchOpened = false;
-        } else {
-            imgViewLogo.setVisibility(View.INVISIBLE);
-            editTextSeach.setVisibility(View.VISIBLE);
-
-            editTextSeach.requestFocus();
-
-            //open the keyboard focused in the edtSearch
-            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.showSoftInput(editTextSeach, InputMethodManager.SHOW_IMPLICIT);
-
-            //add the close icon
-            imgBtnSearch.setImageResource(R.drawable.ic_action_cart);
-
-            isSearchOpened = true;
+        } else if (view.getId() == R.id.btn_header_fragrance){
+            PopOut();
         }
+        else if (view.getId() == R.id.btn_header_hair){
+            PopOut();
+        }
+        else if (view.getId() == R.id.btn_header_more){
+            PopOut();
+        }
+    }
+
+    public void FooterButtonClicked(View view)
+    {
+        if (view.getId() == R.id.btn_footer_search) {
+            PopOut();
+        } else if (view.getId() == R.id.btn_footer_saved) {
+            PopOut();
+        } else if (view.getId() == R.id.btn_footer_camera){
+            PopOut();
+        }
+        else if (view.getId() == R.id.btn_footer_line3){
+            PopOut();
+        }
+        else if (view.getId() == R.id.btn_footer_user){
+            PopOut();
+        }
+    }
+    public void NavigationListClicked(View view)
+    {
+        if (view.getId() == R.id.btn_me) {
+            PopOut();
+        } else if (view.getId() == R.id.btn_collection) {
+            PopOut();
+        } else if (view.getId() == R.id.btn_saved){
+            PopOut();
+        }
+        else if (view.getId() == R.id.btn_home){
+            PopOut();
+        }
+        else if (view.getId() == R.id.btn_nearby){
+            PopOut();
+        }
+        else if (view.getId() == R.id.btn_redeem){
+            PopOut();
+        }
+        else if (view.getId() == R.id.btn_products){
+            PopOut();
+        }
+        else if (view.getId() == R.id.btn_aboutus){
+            PopOut();
+        }
+        else if (view.getId() == R.id.btn_terms){
+            PopOut();
+        }
+        else if (view.getId() == R.id.btn_pdpa){
+            PopOut();
+        }
+        else if (view.getId() == R.id.btn_rate){
+            PopOut();
+        }
+        else if (view.getId() == R.id.btn_share){
+            PopOut();
+        }
+
+    }
+
+
+   // public void imgBtnSearchClicked(View view)
+   // {
+   //     PopOut();
+   // }
+    public void imgBtnCartClicked(View view)
+    {
+        PopOut();
     }
 
     public void imgBtnThreeClicked(View view) {
@@ -159,17 +223,5 @@ public class MainActivity extends AppCompatActivity {
             drawerLayoutMain.openDrawer(GravityCompat.START);
         }
     }
-
-
-    public void navlistitem() {
-        btnme = (Button) findViewById(R.id.btn_me);
-        btnme.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                drawerLayoutMain.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
-            }
-        });
-    }
-
 
 }
