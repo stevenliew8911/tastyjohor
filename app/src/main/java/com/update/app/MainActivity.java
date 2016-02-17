@@ -1,6 +1,9 @@
 package com.update.app;
 
 import android.app.AlertDialog;
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.app.LauncherActivity;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -27,6 +30,7 @@ import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -47,7 +51,7 @@ public class MainActivity extends AppCompatActivity  {
     ImageButton imgBtnSearch;
     ImageView imgViewLogo;
     EditText editTextSeach;
-    ListView listView;
+    ListView listView,userlistview;
     Button btn_me,btn_collection,btn_saved,btn_home,btn_nearby,btn_redeem,btn_products,btn_aboutus,btn_terms,btn_pdpa,btn_rate,btn_share;
 
     private boolean isSearchOpened = false;
@@ -82,7 +86,7 @@ public class MainActivity extends AppCompatActivity  {
         actionBar.setDisplayShowHomeEnabled(false);
         actionBar.setDisplayShowCustomEnabled(true);
         actionBar.setDisplayShowTitleEnabled(false);
-        actionBar.setCustomView(R.layout.search_bar);
+    //    actionBar.setCustomView(R.layout.search_bar);
 
         editTextSeach = (EditText) findViewById(R.id.et_search);
         imgViewLogo = (ImageView) findViewById(R.id.img_view_logo);
@@ -135,78 +139,110 @@ public class MainActivity extends AppCompatActivity  {
     }
     public void TopButtonClicked(View view)
     {
-        if (view.getId() == R.id.btn_header_colors)
+        switch(view.getId())
         {
-            PopOut();
+            case R.id.btn_header_colors:
 
-        } else if (view.getId() == R.id.btn_header_cosmetic) {
-            PopOut();
+                break;
+            case R.id.btn_header_cosmetic:
 
-        } else if (view.getId() == R.id.btn_header_fragrance){
-            PopOut();
-        }
-        else if (view.getId() == R.id.btn_header_hair){
-            PopOut();
-        }
-        else if (view.getId() == R.id.btn_header_more){
-            PopOut();
+                break;
+            case R.id.btn_header_fragrance:
+
+                break;
+            case R.id.btn_header_hair:
+
+                break;
+            case R.id.btn_header_more:
+
+                break;
+
+            default:
+                break;
+
         }
     }
 
     public void FooterButtonClicked(View view)
     {
-        if (view.getId() == R.id.btn_footer_search) {
-            PopOut();
-        } else if (view.getId() == R.id.btn_footer_saved) {
-            PopOut();
-        } else if (view.getId() == R.id.btn_footer_camera){
-            PopOut();
-        }
-        else if (view.getId() == R.id.btn_footer_line3){
-            PopOut();
-        }
-        else if (view.getId() == R.id.btn_footer_user){
-            PopOut();
-        }
-    }
-    public void NavigationListClicked(View view)
-    {
-        if (view.getId() == R.id.btn_me) {
-            PopOut();
-        } else if (view.getId() == R.id.btn_collection) {
-            PopOut();
-        } else if (view.getId() == R.id.btn_saved){
-            PopOut();
-        }
-        else if (view.getId() == R.id.btn_home){
-            PopOut();
-        }
-        else if (view.getId() == R.id.btn_nearby){
-            PopOut();
-        }
-        else if (view.getId() == R.id.btn_redeem){
-            PopOut();
-        }
-        else if (view.getId() == R.id.btn_products){
-            PopOut();
-        }
-        else if (view.getId() == R.id.btn_aboutus){
-            PopOut();
-        }
-        else if (view.getId() == R.id.btn_terms){
-            PopOut();
-        }
-        else if (view.getId() == R.id.btn_pdpa){
-            PopOut();
-        }
-        else if (view.getId() == R.id.btn_rate){
-            PopOut();
-        }
-        else if (view.getId() == R.id.btn_share){
-            PopOut();
+        switch(view.getId())
+        {
+            case R.id.btn_footer_search:
+
+                break;
+            case R.id.btn_footer_saved:
+
+                break;
+            case R.id.btn_footer_camera:
+
+                break;
+            case R.id.btn_footer_line3:
+
+                break;
+            case R.id.btn_footer_user:
+
+                break;
+
+            default:
+                break;
+
         }
 
     }
+    public void NavigationListClicked(View view)
+    {
+        switch(view.getId())
+        {
+            case R.id.btn_me:
+                drawerLayoutMain.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+                //setContentView(R.layout.activity_main);
+                FragmentUser fragmentuser = new FragmentUser();
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.replace(R.id.fragment_main, fragmentuser);
+                transaction.addToBackStack(null);
+                transaction.commit();
+                System.out.println("WOWOWOWOW");
+                break;
+            case R.id.btn_collection:
+
+                break;
+            case R.id.btn_saved:
+
+                break;
+            case R.id.btn_home:
+
+                break;
+            case R.id.btn_nearby:
+
+                break;
+            case R.id.btn_redeem:
+
+                break;
+            case R.id.btn_products:
+
+                break;
+            case R.id.btn_aboutus:
+
+                break;
+            case R.id.btn_terms:
+
+                break;
+            case R.id.btn_pdpa:
+
+                break;
+            case R.id.btn_rate:
+
+                break;
+            case R.id.btn_share:
+
+                break;
+
+            default:
+                break;
+        }
+
+    }
+
 
 
    // public void imgBtnSearchClicked(View view)
