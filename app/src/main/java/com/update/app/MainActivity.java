@@ -8,6 +8,7 @@ import android.app.LauncherActivity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
@@ -196,12 +197,12 @@ public class MainActivity extends AppCompatActivity  {
             case R.id.btn_me:
                 drawerLayoutMain.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
                 //setContentView(R.layout.activity_main);
-                FragmentUser fragmentuser = new FragmentUser();
-                FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                transaction.replace(R.id.fragment_main, fragmentuser);
-                transaction.addToBackStack(null);
-                transaction.commit();
-                System.out.println("WOWOWOWOW");
+            //    FragmentUser fragmentuser = new FragmentUser();
+            //   FragmentTransaction transaction = getFragmentManager().beginTransaction();
+            //    transaction.replace(R.id.fragment_main, fragmentuser);
+            //    transaction.addToBackStack(null);
+            //    transaction.commit();
+            //    System.out.println("WOWOWOWOW");
                 break;
             case R.id.btn_collection:
 
@@ -216,7 +217,8 @@ public class MainActivity extends AppCompatActivity  {
 
                 break;
             case R.id.btn_redeem:
-
+                RedeemDialog alert = new RedeemDialog();
+                alert.showDialog(this, "wow");
                 break;
             case R.id.btn_products:
 
