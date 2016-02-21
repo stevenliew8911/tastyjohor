@@ -1,5 +1,7 @@
 package com.update.app;
 
+import android.media.tv.TvContract;
+
 /**
  * Created by Windows on 5/2/2016.
  */
@@ -11,14 +13,15 @@ public class ListItem {
     private String Id;
     private String HighLight;
     private String ImageUrl;
-    private String IconUrl;
+    private String LogoUrl;
 
-    public String getImageUrl() {
-        return ImageUrl;
+    public String getId() {
+        return Id;
     }
 
-    public void setImageUrl(String ImageUrl) {
-        this.ImageUrl = ImageUrl;
+    public void setId(String Id) {
+        this.Id = Id;
+
     }
 
     public String getName() {
@@ -29,23 +32,6 @@ public class ListItem {
         this.Name = Name;
 
     }
-    public String getId() {
-        return Id;
-    }
-
-    public void setId(String Id) {
-        this.Id = Id;
-
-    }
-
-    public String getIconUrl() {
-        return IconUrl;
-    }
-
-    public void setIconUrl(String IconUrl) {
-        this.IconUrl = IconUrl;
-    }
-
     public String getStartDate() {
         return StartDate;
     }
@@ -60,6 +46,23 @@ public class ListItem {
     public void setEndDate(String EndDate) {
         this.EndDate = EndDate;
     }
+
+    public String getLogoUrl() {
+        return LogoUrl;
+    }
+
+    public void setLogoUrl(String LogoUrl) {
+        this.LogoUrl = LogoUrl;
+    }
+
+    public String getImageUrl() {
+        return ImageUrl;
+    }
+
+    public void setImageUrl(String ImageUrl) {
+        this.ImageUrl = ImageUrl;
+    }
+
     public String getHighLight() {
         return HighLight;
     }

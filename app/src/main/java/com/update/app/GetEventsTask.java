@@ -82,7 +82,7 @@ public class GetEventsTask extends AsyncTask<Void, Integer, ArrayList<ListItem>>
                     }
                     if (tmp.has(Event.Field_Logo)) {
                         event.Logo = tmp.getString(Event.Field_Logo);
-                        newsData.setIconUrl(tmp.getString(Event.Field_Logo));
+                        newsData.setLogoUrl(tmp.getString(Event.Field_Logo));
                         //  Log.d("GetEventsTask", "doInBackground() called with: " + event.Logo.toString());
                     }
                     if (tmp.has(Event.Field_Image)) {
@@ -114,7 +114,7 @@ public class GetEventsTask extends AsyncTask<Void, Integer, ArrayList<ListItem>>
     TextView StartDateView;
 
     @Override
-    protected void onPostExecute(ArrayList<ListItem> listItems) {
+    protected void onPostExecute(final ArrayList<ListItem> listItems) {
         super.onPostExecute(listItems);
 
         listView.setAdapter(new ProductListAdapter(context, listItems));
@@ -122,6 +122,9 @@ public class GetEventsTask extends AsyncTask<Void, Integer, ArrayList<ListItem>>
 
             @Override
             public void onItemClick(AdapterView<?> a, View v, int position, long id) {
+                ListItem newsItem = listItems.get(position);
+               // listView.removeAllViews();
+                new GetEventsByIdTask(context,listView,newsItem.getId());
 
             }
         });
@@ -167,7 +170,7 @@ public class GetEventsTask extends AsyncTask<Void, Integer, ArrayList<ListItem>>
 
             ListItem newsItem = listData.get(position);
             new DownloadImageTask(context, ImageUrlView).execute(newsItem.getImageUrl());
-            new DownloadImageTask(context, IconUrlView).execute(newsItem.getIconUrl());
+            new DownloadImageTask(context, IconUrlView).execute(newsItem.getLogoUrl());
             NameView.setText(newsItem.getName());
             NameView.bringToFront();
             HighLightView.setText(newsItem.getHighLight());

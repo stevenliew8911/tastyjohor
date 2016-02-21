@@ -62,23 +62,12 @@ public class MainActivity extends AppCompatActivity  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        try {
-            listView = (ListView) findViewById(R.id.content_list);
-            new GetEventsTask(getApplicationContext(), listView).execute().get();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
 
+        NewsFragment newsFragment = new NewsFragment();
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        transaction.add(R.id.fragment_main, newsFragment);
+        transaction.commit();
 
-        //  new UpdateItem(getApplicationContext()).execute();
-//        imgBtnSearch.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//            }
-//        });
 
         toolbarMain = (Toolbar) findViewById(R.id.toolbar_main);
         setSupportActionBar(toolbarMain);
@@ -196,13 +185,12 @@ public class MainActivity extends AppCompatActivity  {
         {
             case R.id.btn_me:
                 drawerLayoutMain.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
-                //setContentView(R.layout.activity_main);
-            //    FragmentUser fragmentuser = new FragmentUser();
-            //   FragmentTransaction transaction = getFragmentManager().beginTransaction();
-            //    transaction.replace(R.id.fragment_main, fragmentuser);
-            //    transaction.addToBackStack(null);
-            //    transaction.commit();
-            //    System.out.println("WOWOWOWOW");
+                FragmentUser fragmentuser = new FragmentUser();
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.replace(R.id.fragment_main, fragmentuser);
+               // transaction.addToBackStack(null);
+                transaction.commit();
+
                 break;
             case R.id.btn_collection:
 
@@ -211,7 +199,12 @@ public class MainActivity extends AppCompatActivity  {
 
                 break;
             case R.id.btn_home:
-
+                drawerLayoutMain.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+                NewsFragment newsFragment = new NewsFragment();
+                FragmentTransaction transaction3 = getFragmentManager().beginTransaction();
+                transaction3.replace(R.id.fragment_main, newsFragment);
+                // transaction.addToBackStack(null);
+                transaction3.commit();
                 break;
             case R.id.btn_nearby:
 
@@ -221,6 +214,12 @@ public class MainActivity extends AppCompatActivity  {
                 alert.showDialog(this, "wow");
                 break;
             case R.id.btn_products:
+
+                drawerLayoutMain.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+                GridViewListFragment fragmentproduct = new GridViewListFragment();
+                FragmentTransaction transaction2 = getFragmentManager().beginTransaction();
+                transaction2.replace(R.id.fragment_main, fragmentproduct);
+                transaction2.commit();
 
                 break;
             case R.id.btn_aboutus:
