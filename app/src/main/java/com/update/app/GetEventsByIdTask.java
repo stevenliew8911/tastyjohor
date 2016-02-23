@@ -12,24 +12,27 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
 /**
  * Created by Windows on 21/2/2016.
  */
 public class GetEventsByIdTask extends AsyncTask<Void, Integer, ArrayList<ListItem>> {
-        String event;
+        String eventid;
         Context context = null;
         String Name;
-      //  Event event = new Event();
+        Event event = new Event();
         ProgressDialog progressDialog;
         ListView listView;
 
 
-public GetEventsByIdTask(Context context, ListView listView, String event) {
+public GetEventsByIdTask(Context context, ListView listView, String eventid) {
         this.context = context;
         this.listView = listView;
-        this.event=event;
+        this.eventid=eventid;
 
 
         }
@@ -38,6 +41,9 @@ public GetEventsByIdTask(Context context, ListView listView, String event) {
     protected ArrayList<ListItem> doInBackground(Void... params) {
         ArrayList<ListItem> listMockData = new ArrayList<ListItem>();
         String apiUrl = ApiUrl.GetEventById;
+
+
+
 
         return listMockData;
     }
@@ -101,8 +107,9 @@ public GetEventsByIdTask(Context context, ListView listView, String event) {
             ListItem newsItem = listData.get(position);
          //   new DownloadImageTask(context, ImageUrlView).execute(newsItem.getImageUrl());
          //   new DownloadImageTask(context, IconUrlView).execute(newsItem.getLogoUrl());
+
             NameView.setText("AHHAHAHAHAHAHHA");
-          //  NameView.bringToFront();
+            NameView.bringToFront();
          //   HighLightView.setText(newsItem.getHighLight());
          //   HighLightView.bringToFront();
           //  StartDateView.setText(newsItem.getStartDate());

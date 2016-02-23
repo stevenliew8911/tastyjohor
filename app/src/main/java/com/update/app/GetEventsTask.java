@@ -1,6 +1,7 @@
 package com.update.app;
 
 import android.app.Activity;
+import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -25,6 +26,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 /**
  * Created by Windows on 13/2/2016.
@@ -36,6 +38,7 @@ public class GetEventsTask extends AsyncTask<Void, Integer, ArrayList<ListItem>>
     Event event = new Event();
     ProgressDialog progressDialog;
     ListView listView;
+    public static  ArrayList<ListItem> listMockData;
 
 
     public GetEventsTask(Context context, ListView listView) {
@@ -47,7 +50,7 @@ public class GetEventsTask extends AsyncTask<Void, Integer, ArrayList<ListItem>>
     @Override
     protected ArrayList<ListItem> doInBackground(Void... params) {
         String apiUrl = ApiUrl.GetEvents;
-        ArrayList<ListItem> listMockData = new ArrayList<ListItem>();
+        listMockData = new ArrayList<ListItem>();
         if (NetworkUtil.isNetworkAvailable(context)) {
             String response = NetworkUtil.getStringFromURL(apiUrl);
 
@@ -118,16 +121,7 @@ public class GetEventsTask extends AsyncTask<Void, Integer, ArrayList<ListItem>>
         super.onPostExecute(listItems);
 
         listView.setAdapter(new ProductListAdapter(context, listItems));
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
-            @Override
-            public void onItemClick(AdapterView<?> a, View v, int position, long id) {
-                ListItem newsItem = listItems.get(position);
-               // listView.removeAllViews();
-                new GetEventsByIdTask(context,listView,newsItem.getId());
-
-            }
-        });
     }
 
     class ProductListAdapter extends BaseAdapter {
