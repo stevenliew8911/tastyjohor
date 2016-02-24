@@ -3,12 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:id="@+id/fragment_main"
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
     >
 
     <ListView
-        android:id="@+id/content_list"
+        android:id="@+id/content_list_detail"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:scrollbars="vertical">

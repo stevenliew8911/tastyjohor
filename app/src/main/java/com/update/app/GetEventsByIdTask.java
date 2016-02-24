@@ -35,13 +35,72 @@ public GetEventsByIdTask(Context context, ListView listView, String eventid) {
         this.eventid=eventid;
 
 
+
+
+
+
         }
 
     @Override
     protected ArrayList<ListItem> doInBackground(Void... params) {
         ArrayList<ListItem> listMockData = new ArrayList<ListItem>();
-        String apiUrl = ApiUrl.GetEventById;
+        String apiUrl = ApiUrl.GetEvents;
 
+        if (NetworkUtil.isNetworkAvailable(context)) {
+            String response = NetworkUtil.getStringFromURL(apiUrl);
+
+            try {
+                JSONObject jObj = new JSONObject(response);
+                JSONArray jArray = jObj.getJSONArray("data");
+                for (int i = 0; i < jArray.length(); i++) {
+                    JSONObject tmp = jArray.getJSONObject(i);
+                    String text = jArray.getString(i);
+                    ListItem newsData = new ListItem();
+
+                    if (tmp.has(Event.Field_Id)) {
+                        event.Id = tmp.getString(Event.Field_Id);
+                        newsData.setId(tmp.getString(Event.Field_Id));
+                        //  Log.d("GetEventsTask", "doInBackground() called with: " + event.Id.toString());
+                    }
+                    if (tmp.has(Event.Field_Name)) {
+                        event.Name = tmp.getString(Event.Field_Name);
+                        newsData.setName(tmp.getString(Event.Field_Name));
+                        // Log.d("GetEventsTask", "doInBackground() called with: " + event.Name.toString());
+                    }
+                    if (tmp.has(Event.Field_StartPostDate)) {
+                        event.StartPostDate = tmp.getString(Event.Field_StartPostDate);
+                        newsData.setStartDate(tmp.getString(Event.Field_StartPostDate));
+                        //  Log.d("GetEventsTask", "doInBackground() called with: " + event.StartPostDate.toString());
+
+                    }
+                    if (tmp.has(Event.Field_StartEndDate)) {
+                        event.StartEndDate = tmp.getString(Event.Field_StartEndDate);
+                        newsData.setEndDate(tmp.getString(Event.Field_StartEndDate));
+                        // Log.d("GetEventsTask", "doInBackground() called with: " + event.StartEndDate.toString());
+                    }
+                    if (tmp.has(Event.Field_Logo)) {
+                        event.Logo = tmp.getString(Event.Field_Logo);
+                        newsData.setLogoUrl(tmp.getString(Event.Field_Logo));
+                        //  Log.d("GetEventsTask", "doInBackground() called with: " + event.Logo.toString());
+                    }
+                    if (tmp.has(Event.Field_Image)) {
+                        event.Image = tmp.getString(Event.Field_Image);
+                        newsData.setImageUrl(tmp.getString(Event.Field_Image));
+                        //  Log.d("GetEventsTask", "doInBackground() called with: " + event.Image.toString());
+                    }
+                    if (tmp.has(Event.Field_Highlight)) {
+                        event.Highlight = tmp.getString(Event.Field_Highlight);
+                        newsData.setHighLight(tmp.getString(Event.Field_Highlight));
+                        //   Log.d("GetEventsTask", "doInBackground() called with: " + event.Highlight.toString());
+                    }
+                    listMockData.add(newsData);
+
+                    //     Log.d("GetEventsTask", "doInBackground() called with: " + text);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
 
 
 
@@ -52,6 +111,8 @@ public GetEventsByIdTask(Context context, ListView listView, String eventid) {
     protected void onPostExecute(final ArrayList<ListItem> listItems)
     {
         super.onPostExecute(listItems);
+
+
         listView.setAdapter(new ProductListDetailAdapter(context, listItems));
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
@@ -65,51 +126,58 @@ public GetEventsByIdTask(Context context, ListView listView, String eventid) {
         });
     }
 
-    class ProductListDetailAdapter extends BaseAdapter {
-        ArrayList<ListItem> listData;
-        LayoutInflater layoutInflater;
-        Context context;
-        TextView EndDateView;
-        TextView NameView;
+          class ProductListDetailAdapter extends BaseAdapter {
+                ArrayList<ListItem> listData;
+                LayoutInflater layoutInflater;
+                Context context;
+                TextView EndDateView;
+                TextView NameView;
+                ImageView ImageUrlView;
+                ImageView IconUrlView;
+                TextView HighLightView;
+                 TextView StartDateView;
 
 
-        public ProductListDetailAdapter(Context context, ArrayList listData) {
-            this.context = context;
-            this.listData = listData;
-            this.layoutInflater = LayoutInflater.from(context);
-        }
+                public ProductListDetailAdapter(Context context, ArrayList listData) {
+                    this.context = context;
+                    this.listData = listData;
+                    this.layoutInflater = LayoutInflater.from(context);
 
-        @Override
-        public int getCount() {
-            return listData.size();
-        }
+                }
 
-        @Override
-        public Object getItem(int position) {
-            return listData.get(position);
-        }
+                @Override
+                public int getCount() {
+                    return listData.size();
+                }
 
-        @Override
-        public long getItemId(int position) {
-            return position;
-        }
+                @Override
+                public Object getItem(int position) {
+                    return listData.get(position);
+                }
 
-        public View getView(int position, View convertView, ViewGroup parent) {
-            LayoutInflater inflater = LayoutInflater.from(context);
-            View rowView = inflater.inflate(R.layout.list_view_content_item_detail, null, false);
+                @Override
+                public long getItemId(int position) {
+                    return position;
+                }
 
-            NameView = (TextView) rowView.findViewById(R.id.title);
-         //   HighLightView = (TextView) rowView.findViewById(R.id.subtitle);
-         //   StartDateView = (TextView) rowView.findViewById(R.id.date);
-           // ImageUrlView = (ImageView) rowView.findViewById(R.id.bgImage);
-          //  IconUrlView = (ImageView) rowView.findViewById(R.id.logoImage);
+                public View getView(int position, View convertView, ViewGroup parent) {
 
-            ListItem newsItem = listData.get(position);
+                    LayoutInflater inflater = LayoutInflater.from(context);
+
+                    View rowView = inflater.inflate(R.layout.list_view_content_item_detail, null, false);
+
+                    NameView = (TextView) rowView.findViewById(R.id.title);
+                    HighLightView = (TextView) rowView.findViewById(R.id.subtitle);
+                    StartDateView = (TextView) rowView.findViewById(R.id.date);
+                    ImageUrlView = (ImageView) rowView.findViewById(R.id.bgImage);
+                    IconUrlView = (ImageView) rowView.findViewById(R.id.logoImage);
+
+           ListItem newsItem = listData.get(position);
          //   new DownloadImageTask(context, ImageUrlView).execute(newsItem.getImageUrl());
          //   new DownloadImageTask(context, IconUrlView).execute(newsItem.getLogoUrl());
 
-            NameView.setText("AHHAHAHAHAHAHHA");
-            NameView.bringToFront();
+          //  NameView.setText("AHHAHAHAHAHAHHA");
+           // NameView.bringToFront();
          //   HighLightView.setText(newsItem.getHighLight());
          //   HighLightView.bringToFront();
           //  StartDateView.setText(newsItem.getStartDate());
