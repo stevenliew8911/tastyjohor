@@ -2,12 +2,14 @@ package com.update.app;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.media.Image;
 import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -27,6 +29,7 @@ public class GetEventsByIdTask extends AsyncTask<Void, Integer, ArrayList<ListIt
         Event event = new Event();
         ProgressDialog progressDialog;
         ListView listView;
+        ExpandableListView expListView;;
 
 
 public GetEventsByIdTask(Context context, ListView listView, String eventid) {
@@ -117,14 +120,21 @@ public GetEventsByIdTask(Context context, ListView listView, String eventid) {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
-            public void onItemClick(AdapterView<?> a, View v, int position, long id) {
+            public void onItemClick(AdapterView<?> a, View v, int position, long id)
+            {
            //     ListItem newsItem = listItems.get(position);
                 // listView.removeAllViews();
             //    new GetEventsByIdTask(context, listView, newsItem.getId());
 
             }
         });
+
+
+
+
     }
+
+
 
           class ProductListDetailAdapter extends BaseAdapter {
                 ArrayList<ListItem> listData;
@@ -135,7 +145,10 @@ public GetEventsByIdTask(Context context, ListView listView, String eventid) {
                 ImageView ImageUrlView;
                 ImageView IconUrlView;
                 TextView HighLightView;
-                 TextView StartDateView;
+                TextView StartDateView;
+                ImageView LocationView;
+
+
 
 
                 public ProductListDetailAdapter(Context context, ArrayList listData) {
@@ -171,6 +184,16 @@ public GetEventsByIdTask(Context context, ListView listView, String eventid) {
                     StartDateView = (TextView) rowView.findViewById(R.id.date);
                     ImageUrlView = (ImageView) rowView.findViewById(R.id.bgImage);
                     IconUrlView = (ImageView) rowView.findViewById(R.id.logoImage);
+                    LocationView = (ImageView) rowView.findViewById(R.id.location_logo);
+                    LocationView.setOnClickListener(new View.OnClickListener()
+                    {
+                        @Override
+                        public void onClick(View v)
+                        {
+
+                        }
+                    });
+
 
            ListItem newsItem = listData.get(position);
          //   new DownloadImageTask(context, ImageUrlView).execute(newsItem.getImageUrl());

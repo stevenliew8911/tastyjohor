@@ -21,6 +21,7 @@ public class NewsDetailFragment extends Fragment{
 
     String eventid;
     ListView listView;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
@@ -44,6 +45,7 @@ public class NewsDetailFragment extends Fragment{
 
         return view;
     }
+
 
     public NewsDetailFragment()
     {
