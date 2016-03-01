@@ -1,50 +1,21 @@
 package com.update.app;
 
 import android.app.AlertDialog;
-import android.app.Fragment;
-import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.app.LauncherActivity;
-import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Environment;
-import android.os.StatFs;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.TextView;
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.concurrent.ExecutionException;
 
 public class MainActivity extends AppCompatActivity  {
     Toolbar toolbarMain;
@@ -52,6 +23,7 @@ public class MainActivity extends AppCompatActivity  {
     ImageButton imgBtnSearch;
     ImageView imgViewLogo;
     EditText editTextSeach;
+    Button redeem;
     ListView listView,userlistview;
     Button btn_me,btn_collection,btn_saved,btn_home,btn_nearby,btn_redeem,btn_products,btn_aboutus,btn_terms,btn_pdpa,btn_rate,btn_share;
 
@@ -62,10 +34,12 @@ public class MainActivity extends AppCompatActivity  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //Button redeem = (Button)findViewById(R.id.redeem);
+       // redeem.setVisibility(View.INVISIBLE);
 
-        NewsFragment newsFragment = new NewsFragment();
+        ProductList productList = new ProductList();
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        transaction.add(R.id.fragment_main, newsFragment);
+        transaction.add(R.id.fragment_main, productList);
         transaction.commit();
 
 
@@ -82,6 +56,8 @@ public class MainActivity extends AppCompatActivity  {
         imgViewLogo = (ImageView) findViewById(R.id.img_view_logo);
         imgBtnSearch = (ImageButton) findViewById(R.id.img_btn_search);
         imgViewLogo.setVisibility(View.VISIBLE);
+
+
 
         drawerLayoutMain = (DrawerLayout) findViewById(R.id.drawer_layout_main);
         drawerLayoutMain.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
@@ -196,13 +172,18 @@ public class MainActivity extends AppCompatActivity  {
 
                 break;
             case R.id.btn_saved:
-
+                drawerLayoutMain.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+                FragmentSaved fragmentsaved = new FragmentSaved();
+                FragmentTransaction transaction5 = getFragmentManager().beginTransaction();
+                transaction5.replace(R.id.fragment_main, fragmentsaved);
+                // transaction.addToBackStack(null);
+                transaction5.commit();
                 break;
             case R.id.btn_home:
                 drawerLayoutMain.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
-                NewsFragment newsFragment = new NewsFragment();
+                ProductList productList = new ProductList();
                 FragmentTransaction transaction3 = getFragmentManager().beginTransaction();
-                transaction3.replace(R.id.fragment_main, newsFragment);
+                transaction3.replace(R.id.fragment_main, productList);
                 // transaction.addToBackStack(null);
                 transaction3.commit();
                 break;
@@ -210,8 +191,12 @@ public class MainActivity extends AppCompatActivity  {
 
                 break;
             case R.id.btn_redeem:
-                RedeemDialog alert = new RedeemDialog();
-                alert.showDialog(this, "wow");
+                drawerLayoutMain.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+                FragmentRedeemProduct fragmentredeemproduct = new FragmentRedeemProduct();
+                FragmentTransaction transaction4 = getFragmentManager().beginTransaction();
+                transaction4.replace(R.id.fragment_main, fragmentredeemproduct);
+                // transaction.addToBackStack(null);
+                transaction4.commit();
                 break;
             case R.id.btn_products:
 

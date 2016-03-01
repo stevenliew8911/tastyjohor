@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <Button
+            android:id="@+id/redeem"
+            android:layout_width="fill_parent"
+            android:layout_height="50dp"
+            android:paddingBottom="20dip"
+            android:text="Redeem Now"
+            android:layout_above="@+id/btm_layout"
+            android:textColor="#FFFFFF"
+            android:background="#800080"/>
+
+        <LinearLayout
+            android:id="@+id/btm_layout"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="0dp"
+            android:orientation="horizontal"
+            android:padding="0dp">
+   </LinearLayout>
+    </RelativeLayout>
+
+</merge>

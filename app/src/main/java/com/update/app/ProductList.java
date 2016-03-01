@@ -7,17 +7,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 /**
  * Created by Windows on 22/2/2016.
  */
-public class NewsFragment extends Fragment {
+public class ProductList extends Fragment {
     ListView  listView;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -25,7 +22,9 @@ public class NewsFragment extends Fragment {
        final View view = inflater.inflate(R.layout.content_main, container, false);
         try {
             listView = (ListView) view.findViewById(R.id.content_list);
+
             new GetEventsTask(getActivity(), listView).execute().get();
+
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
@@ -38,7 +37,7 @@ public class NewsFragment extends Fragment {
                 ListItem newsItem = GetEventsTask.listMockData.get(position);
 
             //    listView.setAdapter(null);
-                NewsDetailFragment newsdetailfragment = new NewsDetailFragment();
+                ProductListDetail newsdetailfragment = new ProductListDetail();
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
                 transaction.replace(R.id.fragment_main, newsdetailfragment);
                 transaction.commit();
@@ -64,7 +63,7 @@ public class NewsFragment extends Fragment {
 
 
 
-    public NewsFragment()
+    public ProductList()
     {
 
     }

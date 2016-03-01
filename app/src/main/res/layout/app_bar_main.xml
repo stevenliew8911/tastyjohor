@@ -195,6 +195,7 @@
 
 
         <LinearLayout
+            android:id="@+id/btm_layout"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:layout_alignParentBottom="true"

@@ -236,6 +236,12 @@
             android:layout_height="50dp"
             android:layout_toRightOf="@id/map_logo"
             android:text="Map"/>
+        <ImageView
+            android:id="@+id/map"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_below="@id/map_logo"
+            android:src="@drawable/map"/>
 
     </RelativeLayout>
 
