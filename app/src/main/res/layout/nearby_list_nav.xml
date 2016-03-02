@@ -8,16 +8,14 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:minHeight="0dp"
-        android:padding="0dp"
-        >
+        android:padding="0dp">
         <Button
-            android:id="@+id/saved"
+            android:id="@+id/nearby"
             android:layout_width="fill_parent"
             android:layout_height="30dp"
-            android:text="Saved"
+            android:text="NearBy"
             android:textColor="#FFFFFF"
             android:background="#800080"/>
-
 
         <ImageView
             android:id="@+id/bgImage"
@@ -27,28 +25,21 @@
             android:src="@drawable/taeyeon"
 
             />
-        <TextView
-            android:id="@+id/title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:textColor="#FFFFFF"
-            android:text="TITLE"/>
+        <ImageView
+            android:id="@+id/bgImage2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/bgImage"
+            android:scaleType="fitXY"
+            android:src="@drawable/taeyeon"
+            />
 
-        <TextView
-            android:id="@+id/subtitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/title"
-            android:textColor="#FFFFFF"
-            android:textStyle="bold"
-            android:text="SUBTITLE"/>
 
         <ImageView
             android:id="@+id/logoImage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/subtitle"
+            android:layout_below="@id/bgImage"
             android:paddingTop="45dp"
             android:paddingBottom="10dp"
             android:src="@drawable/logolist"
@@ -58,7 +49,7 @@
             android:id="@+id/date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/bgImage"
+            android:layout_below="@id/bgImage2"
             android:layout_toRightOf="@+id/logoImage"
             android:paddingTop="10dp"
             android:textColor="#000000"
@@ -75,4 +66,4 @@
 
     </RelativeLayout>
 
-  </ScrollView>
+</ScrollView>

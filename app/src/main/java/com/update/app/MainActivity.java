@@ -189,6 +189,13 @@ public class MainActivity extends AppCompatActivity  {
                 break;
             case R.id.btn_nearby:
 
+                drawerLayoutMain.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+                FragmentNearby fragmentnearby = new FragmentNearby();
+                FragmentTransaction transaction6 = getFragmentManager().beginTransaction();
+                transaction6.replace(R.id.fragment_main, fragmentnearby);
+                // transaction.addToBackStack(null);
+                transaction6.commit();
+
                 break;
             case R.id.btn_redeem:
                 drawerLayoutMain.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
