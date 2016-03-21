@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.FragmentTransaction;
 import android.content.DialogInterface;
 
+import android.media.Image;
 import android.os.Bundle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -15,6 +16,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 
 public class MainActivity extends AppCompatActivity  {
@@ -23,6 +25,8 @@ public class MainActivity extends AppCompatActivity  {
     ImageButton imgBtnSearch;
     ImageView imgViewLogo;
     EditText editTextSeach;
+    LinearLayout bottomlinear;
+    ImageButton btm_camera_button;
     Button redeem;
     ListView listView,userlistview;
     Button btn_me,btn_collection,btn_saved,btn_home,btn_nearby,btn_redeem,btn_products,btn_aboutus,btn_terms,btn_pdpa,btn_rate,btn_share;
@@ -57,8 +61,8 @@ public class MainActivity extends AppCompatActivity  {
         imgBtnSearch = (ImageButton) findViewById(R.id.img_btn_search);
         imgViewLogo.setVisibility(View.VISIBLE);
 
-
-
+        bottomlinear = (LinearLayout) findViewById(R.id.btm_layout);
+        btm_camera_button = (ImageButton)findViewById(R.id.btn_footer_camera);
         drawerLayoutMain = (DrawerLayout) findViewById(R.id.drawer_layout_main);
         drawerLayoutMain.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
         drawerLayoutMain.setDrawerListener(new DrawerLayout.DrawerListener() {
@@ -156,7 +160,10 @@ public class MainActivity extends AppCompatActivity  {
 
     }
     public void NavigationListClicked(View view)
-    {
+        {
+            bottomlinear.setVisibility(View.VISIBLE);
+            btm_camera_button.setVisibility(View.VISIBLE);
+
         switch(view.getId())
         {
             case R.id.btn_me:
@@ -185,6 +192,7 @@ public class MainActivity extends AppCompatActivity  {
                 FragmentTransaction transaction3 = getFragmentManager().beginTransaction();
                 transaction3.replace(R.id.fragment_main, productList);
                 // transaction.addToBackStack(null);
+            //    transaction3.popBackStack("lool", transaction3.POP_BACK_STACK_INCLUSIVE);
                 transaction3.commit();
                 break;
             case R.id.btn_nearby:
@@ -206,6 +214,9 @@ public class MainActivity extends AppCompatActivity  {
                 transaction4.commit();
                 break;
             case R.id.btn_products:
+
+                bottomlinear.setVisibility(View.INVISIBLE);
+                btm_camera_button.setVisibility(View.INVISIBLE);
 
                 drawerLayoutMain.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
                 GridViewListFragment fragmentproduct = new GridViewListFragment();

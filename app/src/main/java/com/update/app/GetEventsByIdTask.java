@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -140,6 +141,7 @@ public GetEventsByIdTask(Context context, ListView listView, String eventid) {
                 ArrayList<ListItem> listData;
                 LayoutInflater layoutInflater;
                 Context context;
+                View rowView;
                 TextView EndDateView;
                 TextView NameView;
                 ImageView ImageUrlView;
@@ -147,6 +149,12 @@ public GetEventsByIdTask(Context context, ListView listView, String eventid) {
                 TextView HighLightView;
                 TextView StartDateView;
                 ImageView LocationView;
+                TextView ReadMoreView;
+                TextView ReadLessView;
+                View Divider;
+                TextView Read_More_Detail;
+
+
 
 
 
@@ -177,7 +185,7 @@ public GetEventsByIdTask(Context context, ListView listView, String eventid) {
 
                     LayoutInflater inflater = LayoutInflater.from(context);
 
-                    View rowView = inflater.inflate(R.layout.list_view_content_item_detail, null, false);
+                    rowView = inflater.inflate(R.layout.list_view_content_item_detail, null, false);
 
                     NameView = (TextView) rowView.findViewById(R.id.title);
                     HighLightView = (TextView) rowView.findViewById(R.id.subtitle);
@@ -193,6 +201,44 @@ public GetEventsByIdTask(Context context, ListView listView, String eventid) {
 
                         }
                     });
+
+                    ReadMoreView =(TextView)rowView.findViewById(R.id.read_more);
+                    ReadLessView= (TextView) rowView.findViewById(R.id.read_less);
+                    Divider = (View) rowView.findViewById(R.id.readmore_divider);
+                    Read_More_Detail = (TextView) rowView.findViewById(R.id.subtitle2);
+
+
+                    ReadMoreView.setOnClickListener(new View.OnClickListener()
+                    {
+                        @Override
+                        public void onClick(View v)
+                        {
+                            HighLightView.setVisibility(View.GONE);
+                            ReadMoreView.setVisibility(View.INVISIBLE);
+                            Read_More_Detail.setVisibility(View.VISIBLE);
+                            Divider.setVisibility(View.VISIBLE);
+                            ReadLessView.setVisibility(View.VISIBLE);
+
+
+                        }
+                    });
+
+                    ReadLessView.setOnClickListener(new View.OnClickListener()
+                    {
+                        @Override
+                        public void onClick(View v)
+                        {
+
+                            HighLightView.setVisibility(View.VISIBLE);
+                            ReadMoreView.setVisibility(View.VISIBLE);
+                            Read_More_Detail.setVisibility(View.GONE);
+                            Divider.setVisibility(View.GONE);
+                            ReadLessView.setVisibility(View.GONE);
+
+                        }
+                    });
+
+
 
 
            ListItem newsItem = listData.get(position);
@@ -210,4 +256,5 @@ public GetEventsByIdTask(Context context, ListView listView, String eventid) {
             return rowView;
         }
     }
+
 }

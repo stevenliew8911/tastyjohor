@@ -59,7 +59,8 @@ public class GetEventsTask extends AsyncTask<Void, Integer, ArrayList<ListItem>>
             try {
                 JSONObject jObj = new JSONObject(response);
                 JSONArray jArray = jObj.getJSONArray("data");
-                for (int i = 0; i < jArray.length(); i++) {
+                for (int i = 0; i < jArray.length(); i++)
+                {
                     JSONObject tmp = jArray.getJSONObject(i);
                     String text = jArray.getString(i);
                     ListItem newsData = new ListItem();

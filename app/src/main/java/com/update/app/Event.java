@@ -3,6 +3,7 @@ package com.update.app;
 /**
  * Created by Windows on 13/2/2016.
  */
+
 public class Event {
     public String Id;
     public String Name;

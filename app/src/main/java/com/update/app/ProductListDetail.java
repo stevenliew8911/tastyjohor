@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,35 +30,34 @@ public class ProductListDetail extends Fragment{
             {
                 final View root = inflater.inflate(R.layout.list_product_detail_redeem, container, false);
 
+
                 try
-       {
-            listView = (ListView) root.findViewById(R.id.content_list);
-           Button redeem = (Button)root.findViewById(R.id.redeem);
-           redeem.setVisibility(View.VISIBLE);
-           redeem.bringToFront();
+                  {
+                      listView = (ListView) root.findViewById(R.id.content_list);
+                      Button redeem = (Button)root.findViewById(R.id.redeem);
+                      redeem.setVisibility(View.VISIBLE);
+                      redeem.bringToFront();
 
-           new GetEventsByIdTask(getActivity(), listView,"1").execute().get();
+                      new GetEventsByIdTask(getActivity(), listView,"1").execute().get();
 
-           redeem.setOnClickListener(new View.OnClickListener()
-           {
-               @Override
-               public void onClick(View v)
-              {
-                  RedeemDialog alert = new RedeemDialog();
-                  alert.showDialog(getActivity(), "wow");
-               }
-           });
+                      redeem.setOnClickListener(new View.OnClickListener() {
+                          @Override
+                          public void onClick(View v) {
+                              RedeemDialog alert = new RedeemDialog();
+                              alert.showDialog(getActivity(), "wow");
+                          }
+                      });
 
-      } catch (InterruptedException e) {
+
+
+
+
+                  } catch (InterruptedException e) {
            e.printStackTrace();
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
 
-
-
-
-        //do whatever you want here - like adding a listview or anything
 
         return root;
     }

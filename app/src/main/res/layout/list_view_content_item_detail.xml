@@ -49,27 +49,67 @@
         android:textStyle="bold"
         android:text="DESCRIPTION"/>
 
+    <TextView
+        android:id="@+id/subtitle2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/date"
+        android:textStyle="bold"
+        android:text="XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        android:visibility="gone"
+        />
+
+    <TextView
+        android:id="@+id/read_more"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/subtitle2"
+        android:layout_centerInParent="true"
+        android:textColor="#FF0000"
+        android:clickable="true"
+        android:text="Read More"/>
+
+
     <ImageView
         android:id="@+id/logofacebok"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_below="@id/subtitle"
+        android:layout_below="@id/read_more"
         android:src="@drawable/facebook_logo"
         />
     <ImageView
         android:id="@+id/logoinstagram"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_below="@id/subtitle"
+        android:layout_below="@id/read_more"
         android:layout_toRightOf="@id/logofacebok"
         android:src="@drawable/instagram_logo"
         />
+    <View
+        android:id="@+id/readmore_divider"
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_margin="0dp"
+        android:layout_below="@id/logoinstagram"
+        android:background="#CCCCCC"
+        android:visibility="gone"/>
+
+    <TextView
+        android:id="@+id/read_less"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/readmore_divider"
+        android:layout_centerInParent="true"
+        android:textColor="#FF0000"
+        android:clickable="true"
+        android:text="Read Less"
+        android:visibility="gone"/>
 
     <RelativeLayout
         android:id="@+id/recommend_layout"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_below="@id/logoinstagram"
+        android:layout_below="@id/read_less"
         android:background="#d3d3d3"
    >
         <ImageView
@@ -195,7 +235,8 @@
             android:maxLines="4"
             android:lines="4"
             android:layout_below="@id/location_logo"
-            android:text="Solaris Dutamas\n1, Jalan Dutamas 1\n50480 Kuala Lumpur\nWilayah Persekutuan, Malaysia"/>
+            android:text="Solaris Dutamas\n1, Jalan Dutamas 1\n50480 Kuala Lumpur\nWilayah Persekutuan, Malaysia"
+           />
 
         <ImageView
             android:id="@+id/google_map"
