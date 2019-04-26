@@ -1,4 +1,4 @@
-package com.update.app;
+package com.update.food;
 
 import org.junit.Test;
 

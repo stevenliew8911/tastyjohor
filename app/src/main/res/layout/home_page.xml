@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context=".MainActivity"
+    tools:openDrawer="start">
+
+    <include layout="@layout/home_page_app_main" />
+
+    <android.support.design.widget.NavigationView
+        android:id="@+id/nav_view_main"
+        android:layout_width="250dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:fitsSystemWindows="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#EBEBEB">
+
+            <ScrollView
+                android:layout_width="250dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentTop="true"
+                android:fillViewport="false">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="fill_parent"
+                    android:orientation="vertical">
+
+                    <ImageButton
+                        style="?android:attr/borderlessButtonStyle"
+                        android:layout_width="200dp"
+                        android:layout_height="200dp"
+                        android:scaleType="fitXY"
+                        android:layout_gravity="start"
+                        android:layout_marginTop="30dp"
+                        android:drawablePadding="10dp"
+                        android:gravity="start|center_vertical"
+                        android:paddingEnd="0dp"
+                        android:paddingLeft="20dp"
+                        android:paddingRight="20dp"
+                        android:paddingStart="20dp"
+                        android:onClick=""
+                        android:id="@+id/btn_avatar"
+                        android:src="@drawable/ic_nav_home"
+                        />
+                    <TextView
+                        android:id="@+id/role_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:paddingEnd="0dp"
+                        android:paddingLeft="20dp"
+                        android:paddingRight="0dp"
+                        android:paddingStart="20dp"
+                        android:text="UserRole"
+                        android:textSize="16sp" />
+                    <View
+                        android:layout_width="fill_parent"
+                        android:layout_height="3dp"
+                        android:layout_margin="5dp"
+                        android:background="#CCCCCC" />
+
+
+                    <Button
+                        style="?android:attr/borderlessButtonStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start"
+                        android:background="@null"
+                        android:drawableLeft="@drawable/ic_nav_redeem"
+                        android:drawablePadding="10dp"
+                        android:drawableStart="@drawable/ic_nav_redeem"
+                        android:gravity="start|center_vertical"
+                        android:paddingEnd="0dp"
+                        android:paddingLeft="20dp"
+                        android:paddingRight="0dp"
+                        android:paddingStart="20dp"
+                        android:text="Logout"
+                        android:textAllCaps="false"
+                        android:textColor="#646464"
+                        android:textSize="12sp"
+                        android:onClick="NavigationListClicked"
+                        android:id="@+id/btn_logout"/>
+
+
+                </LinearLayout>
+            </ScrollView>
+
+            <Button
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_gravity="center"
+                android:layout_margin="0dp"
+                android:background="#3F296A"
+                android:gravity="center"
+                android:text="Share This Apps"
+                android:textAllCaps="false"
+                android:textColor="#ffffff"
+                android:textSize="16sp"
+                android:onClick="share_button"
+                android:id="@+id/btn_share"/>
+
+
+        </RelativeLayout>
+
+    </android.support.design.widget.NavigationView>
+</android.support.v4.widget.DrawerLayout>

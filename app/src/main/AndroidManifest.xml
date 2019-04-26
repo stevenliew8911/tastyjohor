@@ -1,24 +1,243 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.update.app" >
+    package="com.update.food" >
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <permission android:name="com.update.food.permission.MAPS_RECEIVE" android:protectionLevel="signature" />
+    <uses-permission android:name="com.update.food.permission.MAPS_RECEIVE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+
 
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
-        >
-        <activity android:name=".MainActivity">
+        android:largeHeap="true"
+        android:hardwareAccelerated="true"
+        android:theme="@style/AppTheme">
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
+        <activity android:name="com.update.food.Splashscreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
+                <action android:name="android.intent.action.SEND" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name="com.update.food.MainActivity"
+            android:screenOrientation="portrait">
+        </activity>
+
+        <activity
+            android:name="com.update.food.HomePage"
+            android:screenOrientation="portrait">
+        </activity>
+
+        <activity android:name="com.update.food.CafeFoodPageDistance.CafeFoodPageBelow10km"
+            android:parentActivityName="com.update.food.Categories.CafeFoodPage"
+            android:screenOrientation="portrait">
+        </activity>
+
+        <activity android:name="com.update.food.CafeFoodPageDistance.CafeFoodPageBelow5km"
+            android:parentActivityName="com.update.food.Categories.CafeFoodPage"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity android:name="com.update.food.CafeFoodPageDistance.CafeFoodPageBelow15km"
+            android:parentActivityName="com.update.food.Categories.CafeFoodPage"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity android:name="com.update.food.CafeFoodPageDistance.CafeFoodPageBelow20km"
+            android:parentActivityName="com.update.food.Categories.CafeFoodPage"
+            android:screenOrientation="portrait">
+        </activity>
+
+        <activity android:name="com.update.food.JapaneseFoodPageDistance.JapaneseFoodPageBelow5km"
+            android:parentActivityName="com.update.food.Categories.JapaneseFoodPage"
+            android:screenOrientation="portrait">
+        </activity>
+
+        <activity android:name="com.update.food.JapaneseFoodPageDistance.JapaneseFoodPageBelow10km"
+            android:parentActivityName="com.update.food.Categories.JapaneseFoodPage"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity android:name="com.update.food.JapaneseFoodPageDistance.JapaneseFoodPageBelow15km"
+            android:parentActivityName="com.update.food.Categories.JapaneseFoodPage"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity android:name="com.update.food.JapaneseFoodPageDistance.JapaneseFoodPageBelow20km"
+            android:parentActivityName="com.update.food.Categories.JapaneseFoodPage"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity android:name="com.update.food.ChineseFoodPageDistance.ChineseFoodPageBelow5km"
+        android:parentActivityName="com.update.food.Categories.ChineseFoodPage"
+        android:screenOrientation="portrait">
+    </activity>
+
+        <activity android:name="com.update.food.ChineseFoodPageDistance.ChineseFoodPageBelow10km"
+            android:parentActivityName="com.update.food.Categories.ChineseFoodPage"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity android:name="com.update.food.ChineseFoodPageDistance.ChineseFoodPageBelow15km"
+            android:parentActivityName="com.update.food.Categories.ChineseFoodPage"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity android:name="com.update.food.ChineseFoodPageDistance.ChineseFoodPageBelow20km"
+            android:parentActivityName="com.update.food.Categories.ChineseFoodPage"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity android:name="com.update.food.WesternFoodPageDistance.WesternFoodPageBelow5km"
+            android:parentActivityName="com.update.food.Categories.WesternFoodPage"
+            android:screenOrientation="portrait">
+        </activity>
+
+        <activity android:name="com.update.food.WesternFoodPageDistance.WesternFoodPageBelow10km"
+            android:parentActivityName="com.update.food.Categories.WesternFoodPage"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity android:name="com.update.food.WesternFoodPageDistance.WesternFoodPageBelow15km"
+            android:parentActivityName="com.update.food.Categories.WesternFoodPage"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity android:name="com.update.food.WesternFoodPageDistance.WesternFoodPageBelow20km"
+            android:parentActivityName="com.update.food.Categories.WesternFoodPage"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity android:name="com.update.food.KoreanFoodPageDistance.KoreanFoodPageBelow5km"
+            android:parentActivityName="com.update.food.Categories.KoreanFoodPage"
+            android:screenOrientation="portrait">
+        </activity>
+
+        <activity android:name="com.update.food.KoreanFoodPageDistance.KoreanFoodPageBelow10km"
+            android:parentActivityName="com.update.food.Categories.KoreanFoodPage"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity android:name="com.update.food.KoreanFoodPageDistance.KoreanFoodPageBelow15km"
+            android:parentActivityName="com.update.food.Categories.KoreanFoodPage"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity android:name="com.update.food.KoreanFoodPageDistance.KoreanFoodPageBelow20km"
+            android:parentActivityName="com.update.food.Categories.KoreanFoodPage"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity android:name="com.update.food.LocalFoodPageDistance.LocalFoodPageBelow5km"
+            android:parentActivityName="com.update.food.Categories.LocalFoodPage"
+            android:screenOrientation="portrait">
+        </activity>
+
+        <activity android:name="com.update.food.LocalFoodPageDistance.LocalFoodPageBelow10km"
+            android:parentActivityName="com.update.food.Categories.LocalFoodPage"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity android:name="com.update.food.LocalFoodPageDistance.LocalFoodPageBelow15km"
+            android:parentActivityName="com.update.food.Categories.LocalFoodPage"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity android:name="com.update.food.LocalFoodPageDistance.LocalFoodPageBelow20km"
+            android:parentActivityName="com.update.food.Categories.LocalFoodPage"
+            android:screenOrientation="portrait">
+        </activity>
+
+        <activity android:name="com.update.food.VegetarianFoodPageDistance.VegetarianFoodPageBelow5km"
+            android:parentActivityName="com.update.food.Categories.VegetarianFoodPage"
+            android:screenOrientation="portrait">
+        </activity>
+
+        <activity android:name="com.update.food.VegetarianFoodPageDistance.VegetarianFoodPageBelow10km"
+            android:parentActivityName="com.update.food.Categories.VegetarianFoodPage"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity android:name="com.update.food.VegetarianFoodPageDistance.VegetarianFoodPageBelow15km"
+            android:parentActivityName="com.update.food.Categories.VegetarianFoodPage"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity android:name="com.update.food.VegetarianFoodPageDistance.VegetarianFoodPageBelow20km"
+            android:parentActivityName="com.update.food.Categories.VegetarianFoodPage"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity android:name="com.update.food.Categories.ChineseFoodPage"
+                  android:parentActivityName="com.update.food.HomePage"
+                  android:screenOrientation="portrait">
+        </activity>
+        <activity android:name="com.update.food.Categories.WesternFoodPage"
+                  android:parentActivityName="com.update.food.HomePage"
+                  android:screenOrientation="portrait">
+        </activity>
+
+        <activity android:name="com.update.food.Categories.CafeFoodPage"
+                  android:parentActivityName="com.update.food.HomePage"
+                  android:screenOrientation="portrait">
+        </activity>
+        <activity android:name="com.update.food.Categories.JapaneseFoodPage"
+                  android:parentActivityName="com.update.food.HomePage"
+                  android:screenOrientation="portrait">
+        </activity>
+        <activity android:name="com.update.food.Categories.KoreanFoodPage"
+                  android:parentActivityName="com.update.food.HomePage"
+                  android:screenOrientation="portrait">
+        </activity>
+        <activity android:name="com.update.food.Categories.LocalFoodPage"
+                  android:parentActivityName="com.update.food.HomePage"
+                  android:screenOrientation="portrait">
+        </activity>
+        <activity android:name="com.update.food.Categories.VegetarianFoodPage"
+                  android:parentActivityName="com.update.food.HomePage"
+                  android:screenOrientation="portrait">
+        </activity>
+
+        <activity android:name="com.update.food.CafeFoodPageDetail.CafeFoodDetailPage"
+                  android:parentActivityName="com.update.food.Categories.CafeFoodPage"
+                  android:screenOrientation="portrait">
+        </activity>
+
+        <activity android:name="com.update.food.ChineseFoodPageDetail.ChineseFoodDetailPage"
+                  android:parentActivityName="com.update.food.Categories.ChineseFoodPage"
+                  android:screenOrientation="portrait">
+        </activity>
+
+        <activity android:name="com.update.food.JapaneseFoodPageDetail.JapaneseFoodDetailPage"
+                  android:parentActivityName="com.update.food.Categories.JapaneseFoodPage"
+                  android:screenOrientation="portrait">
+        </activity>
+
+        <activity android:name="com.update.food.KoreanFoodPageDetail.KoreanFoodDetailPage"
+                  android:parentActivityName="com.update.food.Categories.KoreanFoodPage"
+                  android:screenOrientation="portrait">
+        </activity>
+
+        <activity android:name="com.update.food.LocalFoodPageDetail.LocalFoodDetailPage"
+                  android:parentActivityName="com.update.food.Categories.LocalFoodPage"
+                  android:screenOrientation="portrait">
+        </activity>
+
+        <activity android:name="com.update.food.VegetarianFoodPageDetail.VegetarianFoodDetailPage"
+                  android:parentActivityName="com.update.food.Categories.VegetarianFoodPage"
+                  android:screenOrientation="portrait">
+        </activity>
+
+        <activity android:name="com.update.food.WesternFoodPageDetail.WesternFoodDetailPage"
+                  android:parentActivityName="com.update.food.Categories.WesternFoodPage"
+                  android:screenOrientation="portrait">
+        </activity>
+
+
+
+        <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
+        <meta-data
+            android:name="com.google.android.maps.v2.API_KEY"
+            android:value="AIzaSyAKqTKEvwrku7aCBvdnIh5uhIGbhBXgF8o"/>
+
+        <activity
+            android:name="com.google.android.gms.ads.AdActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
+            android:theme="@android:style/Theme.Translucent" />
     </application>
 
 </manifest>

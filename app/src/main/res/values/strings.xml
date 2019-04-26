@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">UpdateApp</string>
+    <string name="app_name">Tasty Johor</string>
+    <string name="facebook_app_id">1614030718889752</string>
+    <string name="banner_home_footer">ca-app-pub-6849509841379714/5145545984</string>
 </resources>

@@ -1,15 +1,22 @@
+
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion "23.0.2"
+    compileSdkVersion 27
+    buildToolsVersion "27.0.0"
+    aaptOptions.cruncherEnabled = false
+    aaptOptions.useNewCruncher = false
 
+    dexOptions {
+        javaMaxHeapSize "2g"
+    }
     defaultConfig {
-        applicationId "com.update.app"
-        minSdkVersion 14
-        targetSdkVersion 23
-        versionCode 1
-        versionName "1.0"
+        applicationId "com.update.food"
+        minSdkVersion 15
+        targetSdkVersion 27
+        versionCode 18
+        versionName "18.0"
+        
     }
     buildTypes {
         release {
@@ -19,9 +26,22 @@ android {
     }
 }
 
-dependencies {
+dependencies
+        {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:23.+'
-    compile 'com.android.support:design:23.+'
+    compile 'com.android.support:appcompat-v7:27.1.1'
+    compile 'com.android.support:design:27.1.1'
+    compile 'com.facebook.android:facebook-android-sdk:[4,5)'
+    compile 'com.google.android.gms:play-services-maps:9.8.0'
+    compile 'com.google.android.gms:play-services-auth:9.8.0'
+    compile 'com.google.android.gms:play-services-plus:9.8.0'
+    compile 'commons-io:commons-io:+'
+    compile "com.squareup.picasso:picasso:2.5.2"
+    compile "com.google.android.gms:play-services-ads:9.8.0"
+
+
+
 }
+
+
