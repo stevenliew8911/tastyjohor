@@ -17,6 +17,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.provider.Settings;
+import android.speech.RecognizerIntent;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -44,6 +45,8 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 import com.squareup.picasso.Picasso;
@@ -58,6 +61,8 @@ import com.update.food.List.ProfileList;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+import java.util.Locale;
 
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
@@ -79,9 +84,11 @@ public class HomePage extends AppCompatActivity
     public static ListView listview;
     public static ImageButton imgbtn;
     public static TextView role_title;
+    public ImageView voicemicrophone;
     private ImageAdapter adapter;
     public Activity activity;
     public static final int REQUEST_LOCATION = 2;
+    public static final int REQUEST_CODE_SPEECH_INPUT =1000;
      Integer[] imageIDs = {
             R.drawable.chinese_food,
             R.drawable.western_food,
@@ -151,6 +158,7 @@ public class HomePage extends AppCompatActivity
 
 
 
+
         toolbarMain = (Toolbar) findViewById(R.id.toolbar_main);
         setSupportActionBar(toolbarMain);
 
@@ -185,6 +193,8 @@ public class HomePage extends AppCompatActivity
             }
         });
     }
+
+
 
 
     public void share_button(View view)

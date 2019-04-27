@@ -7,12 +7,15 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.Handler;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SearchView;
@@ -50,6 +53,7 @@ public class KoreanFoodPage extends AppCompatActivity {
     Toolbar toolbarMain;
     public static ListView list;
     SearchView search_btn;
+    SwipeRefreshLayout mSwipeRefreshLayout;
     public static ArrayList<ShopList> shopdata;
     public static SearchableAdapter adapter;
     public static Double currentlatitude;
@@ -68,7 +72,8 @@ public class KoreanFoodPage extends AppCompatActivity {
         overridePendingTransition(R.drawable.animation_left_in, R.drawable.animation_left_out);
 
 
-
+        mSwipeRefreshLayout= (SwipeRefreshLayout)findViewById(R.id.swipeToRefresh);
+        mSwipeRefreshLayout.setColorSchemeResources(R.color.colorAccent);
         list = (ListView) findViewById(R.id.listview);
         initialize();
 
@@ -128,12 +133,57 @@ public class KoreanFoodPage extends AppCompatActivity {
             }
         });
 
+        list.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView absListView, int i) {
+
+            }
+
+            @Override
+            public void onScroll(AbsListView absListView, int i, int i1, int i2) {
+                if(i == 0 && listIsAtTop()){
+                    mSwipeRefreshLayout.setEnabled(true);
+                }else{
+                    mSwipeRefreshLayout.setEnabled(false);
+                }
+            }
+        });
+
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                currentlatitude = 0.00;
+                currentlongtitude = 0.00;
+                clearshopdetail();
+                shopdata.clear();
+                list.invalidateViews();
+
+                final Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        //Do something after 100ms
+                        //fetchshopdata();
+                        initialize();
+                        mSwipeRefreshLayout.setRefreshing(false);
+                    }
+                }, 2000);
+
+
+            }
+        });
+
         toolbarMain = (Toolbar) findViewById(R.id.toolbar_main);
         setSupportActionBar(toolbarMain);
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayShowHomeEnabled(true);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+    }
+
+    private boolean listIsAtTop()   {
+        if(list.getChildCount() == 0) return true;
+        return list.getChildAt(0).getTop() == 0;
     }
     public void imgLocationClicked(View view) {
 
