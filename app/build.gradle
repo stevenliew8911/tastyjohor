@@ -12,11 +12,16 @@ android {
     }
     defaultConfig {
         applicationId "com.update.food"
-        minSdkVersion 15
+        minSdkVersion 16
         targetSdkVersion 27
-        versionCode 18
-        versionName "18.0"
-        
+        versionCode 19
+        versionName "19.0"
+
+        manifestPlaceholders = [
+                JPUSH_PKGNAME : "com.update.food",
+                JPUSH_APPKEY : "bb1cff63de1a28cc539be1c1", //JPush上注册的包名对应的appkey.
+                JPUSH_CHANNEL : "developer-default", //暂时填写默认值即可.
+        ]
     }
     buildTypes {
         release {
@@ -24,7 +29,9 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
 }
+
 
 dependencies
         {
@@ -39,6 +46,8 @@ dependencies
     compile 'commons-io:commons-io:+'
     compile "com.squareup.picasso:picasso:2.5.2"
     compile "com.google.android.gms:play-services-ads:9.8.0"
+            compile 'cn.jiguang.sdk:jpush:3.2.0'   
+            compile 'cn.jiguang.sdk:jcore:1.2.7'
 
 
 

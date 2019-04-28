@@ -3,9 +3,11 @@ package com.update.food;
 import android.*;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -19,6 +21,7 @@ import android.os.StrictMode;
 import android.provider.Settings;
 import android.speech.RecognizerIntent;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -69,6 +72,8 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.update.food.Network.*;
 import com.update.food.Network.NetworkUtil;
+
+import cn.jpush.android.api.JPushInterface;
 
 /**
  * Created by Windows on 14/9/2016.
@@ -123,6 +128,12 @@ public class HomePage extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_page);
+        JPushInterface.init(this);
+        //开启调试
+        JPushInterface.setDebugMode(true);
+        registerMessageReceiver();
+
+
         StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder().detectDiskReads().detectDiskWrites().detectNetwork().penaltyLog().build());
         activity=this;
         overridePendingTransition(R.drawable.animation_left_in, R.drawable.animation_left_out);
@@ -193,7 +204,48 @@ public class HomePage extends AppCompatActivity
             }
         });
     }
+    private MessageReceiver mMessageReceiver;
+    public static final String MESSAGE_RECEIVED_ACTION = "com.example.jpushdemo.MESSAGE_RECEIVED_ACTION";
+    public static final String KEY_TITLE = "title";
+    public static final String KEY_MESSAGE = "message";
+    public static final String KEY_EXTRAS = "extras";
 
+    public void registerMessageReceiver() {
+        mMessageReceiver = new MessageReceiver();
+        IntentFilter filter = new IntentFilter();
+        filter.setPriority(IntentFilter.SYSTEM_HIGH_PRIORITY);
+        filter.addAction(MESSAGE_RECEIVED_ACTION);
+        LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver, filter);
+    }
+
+    public class MessageReceiver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            try {
+                if (MESSAGE_RECEIVED_ACTION.equals(intent.getAction())) {
+                    String messge = intent.getStringExtra(KEY_MESSAGE);
+                    String extras = intent.getStringExtra(KEY_EXTRAS);
+                    StringBuilder showMsg = new StringBuilder();
+                    showMsg.append(KEY_MESSAGE + " : " + messge + "\n");
+                    if (!isEmpty(extras)) {
+                        showMsg.append(KEY_EXTRAS + " : " + extras + "\n");
+                    }
+                    showMsg.append(showMsg.toString());
+                }
+            } catch (Exception e){
+            }
+        }
+    }
+    public static boolean isEmpty(String s) {
+        if (null == s)
+            return true;
+        if (s.length() == 0)
+            return true;
+        if (s.trim().length() == 0)
+            return true;
+        return false;
+    }
 
 
 

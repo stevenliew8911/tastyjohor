@@ -138,7 +138,7 @@ public class CafeFoodPage extends AppCompatActivity {
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                
+
                 currentlatitude = 0.00;
                 currentlongtitude = 0.00;
                 clearshopdetail();
