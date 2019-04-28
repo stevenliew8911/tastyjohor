@@ -71,7 +71,7 @@ public class GetKoreanShopListTask extends AsyncTask<Void, Integer, ArrayList<Sh
     {
         String apiUrl = ApiUrl.Domain + ApiUrl.GetKoreanShopList;
         listMockData = new ArrayList<ShopList>();
-        if (NetworkUtil.isNetworkAvailable(context))
+        if (NetworkUtil.isNetworkAvailable(context)&& NetworkUtil.isGPSAvailable(context))
         {
             String response = NetworkUtil.sendGet(apiUrl,false);
 

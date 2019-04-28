@@ -71,7 +71,7 @@ public class GetWesternShopListTask extends AsyncTask<Void, Integer, ArrayList<S
     {
         String apiUrl = ApiUrl.Domain + ApiUrl.GetWesternShopList;
         listMockData = new ArrayList<ShopList>();
-        if (NetworkUtil.isNetworkAvailable(context))
+        if (NetworkUtil.isNetworkAvailable(context)&& NetworkUtil.isGPSAvailable(context))
         {
             String response = NetworkUtil.sendGet(apiUrl,false);
 

@@ -25,10 +25,8 @@ import com.update.food.CafeFoodPageDistance.CafeFoodPageBelow10km;
 import com.update.food.CafeFoodPageDistance.CafeFoodPageBelow15km;
 import com.update.food.CafeFoodPageDistance.CafeFoodPageBelow20km;
 import com.update.food.CafeFoodPageDistance.CafeFoodPageBelow5km;
-import com.update.food.CafeTempVariable.CafeTempVariable;
 import com.update.food.GetFunction.GetCafeShopListTask;
 import com.update.food.List.ShopList;
-import com.update.food.Network.CheckRequirement;
 import com.update.food.R;
 import com.update.food.SearchFunction.SearchableAdapter;
 

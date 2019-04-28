@@ -3,6 +3,7 @@ package com.update.food.Network;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.util.Log;
@@ -45,6 +46,16 @@ public class NetworkUtil {
             isConnected = activeNetwork.isConnectedOrConnecting();
         }
         return isConnected;
+    }
+
+    public static boolean isGPSAvailable(Context context)
+    {
+        boolean gps_enabled;
+        LocationManager lm = (LocationManager)context.getSystemService(Context.LOCATION_SERVICE);
+         gps_enabled =lm.isProviderEnabled(LocationManager.GPS_PROVIDER);
+
+
+        return gps_enabled;
     }
 
     public static String createQueryStringForParameters(Map<String, String> parameters)

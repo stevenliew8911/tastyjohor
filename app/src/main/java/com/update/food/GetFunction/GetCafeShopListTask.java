@@ -60,7 +60,7 @@ public class GetCafeShopListTask extends AsyncTask<Void, Integer, ArrayList<Shop
     {
         String apiUrl = ApiUrl.Domain + ApiUrl.GetCafeShopList;
         listMockData = new ArrayList<ShopList>();
-        if (NetworkUtil.isNetworkAvailable(context))
+        if (NetworkUtil.isNetworkAvailable(context) && NetworkUtil.isGPSAvailable(context))
         {
             String response = NetworkUtil.sendGet(apiUrl,false);
 

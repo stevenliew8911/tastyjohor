@@ -2,7 +2,6 @@ package com.update.food.Categories;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -20,24 +19,11 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SearchView;
 
-import com.update.food.CafeFoodPageDetail.CafeFoodDetailPage;
-import com.update.food.CafeFoodPageDistance.CafeFoodPageBelow10km;
-import com.update.food.CafeFoodPageDistance.CafeFoodPageBelow15km;
-import com.update.food.CafeFoodPageDistance.CafeFoodPageBelow20km;
-import com.update.food.CafeFoodPageDistance.CafeFoodPageBelow5km;
 import com.update.food.ChineseFoodPageDetail.ChineseFoodDetailPage;
-import com.update.food.GetFunction.GetCafeShopListTask;
-import com.update.food.GetFunction.GetChineseShopListTask;
-import com.update.food.GetFunction.GetJapaneseShopListTask;
-import com.update.food.GetFunction.GetKoreanShopListTask;
 import com.update.food.GetFunction.GetWesternShopListTask;
-import com.update.food.JapaneseFoodPageDetail.JapaneseFoodDetailPage;
-import com.update.food.KoreanFoodPageDetail.KoreanFoodDetailPage;
 import com.update.food.List.ShopList;
-import com.update.food.Network.CheckRequirement;
 import com.update.food.R;
 import com.update.food.SearchFunction.SearchableAdapter;
-import com.update.food.WesternFoodPageDetail.WesternFoodDetailPage;
 import com.update.food.WesternFoodPageDistance.WesternFoodPageBelow10km;
 import com.update.food.WesternFoodPageDistance.WesternFoodPageBelow15km;
 import com.update.food.WesternFoodPageDistance.WesternFoodPageBelow20km;
@@ -46,7 +32,6 @@ import com.update.food.WesternFoodPageDistance.WesternFoodPageBelow5km;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.concurrent.ExecutionException;
 
 /**
  * Created by Windows on 19/9/2016.

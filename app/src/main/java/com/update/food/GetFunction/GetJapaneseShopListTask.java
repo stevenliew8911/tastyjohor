@@ -71,7 +71,7 @@ public class GetJapaneseShopListTask extends AsyncTask<Void, Integer, ArrayList<
     {
         String apiUrl = ApiUrl.Domain + ApiUrl.GetJapaneseShopList;
         listMockData = new ArrayList<ShopList>();
-        if (NetworkUtil.isNetworkAvailable(context))
+        if (NetworkUtil.isNetworkAvailable(context)&& NetworkUtil.isGPSAvailable(context))
         {
             String response = NetworkUtil.sendGet(apiUrl,false);
 

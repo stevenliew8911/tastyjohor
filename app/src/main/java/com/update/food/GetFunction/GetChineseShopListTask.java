@@ -53,7 +53,7 @@ public class GetChineseShopListTask extends AsyncTask<Void, Integer, ArrayList<S
     {
         String apiUrl = ApiUrl.Domain + ApiUrl.GetChineseShopList;
         listMockData = new ArrayList<ShopList>();
-        if (NetworkUtil.isNetworkAvailable(context))
+        if (NetworkUtil.isNetworkAvailable(context)&& NetworkUtil.isGPSAvailable(context))
         {
             String response = NetworkUtil.sendGet(apiUrl,false);
 

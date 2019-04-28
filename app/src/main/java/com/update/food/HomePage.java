@@ -89,7 +89,8 @@ public class HomePage extends AppCompatActivity
     public static ListView listview;
     public static ImageButton imgbtn;
     public static TextView role_title;
-    public ImageView voicemicrophone;
+    boolean permissiongrantedindicator;
+    boolean firsttime;
     private ImageAdapter adapter;
     public Activity activity;
     public static final int REQUEST_LOCATION = 2;
@@ -135,7 +136,7 @@ public class HomePage extends AppCompatActivity
 
 
         StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder().detectDiskReads().detectDiskWrites().detectNetwork().penaltyLog().build());
-        activity=this;
+       // activity=getApplicationContext();
         overridePendingTransition(R.drawable.animation_left_in, R.drawable.animation_left_out);
 
         MobileAds.initialize(getApplicationContext(), "ca-app-pub-6849509841379714~2311660788");
@@ -146,9 +147,13 @@ public class HomePage extends AppCompatActivity
                 .build();
         mAdView.loadAd(adRequest);
 
-        checkpermission();
-        imgbtn= (ImageButton)findViewById(R.id.btn_avatar);
 
+        firsttime=true;
+        checkpermission();
+
+
+
+        imgbtn= (ImageButton)findViewById(R.id.btn_avatar);
         Picasso.with(this)
                 .load("https://graph.facebook.com/"+ProfileList.getbitmap+"/picture?type=large")
                 .placeholder(R.drawable.placeholder)
@@ -387,44 +392,28 @@ public class HomePage extends AppCompatActivity
     public void checkpermission()
     {
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION )
-                != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // Check Permissions Now
-
-            if (ActivityCompat.shouldShowRequestPermissionRationale( this, android.Manifest.permission.ACCESS_FINE_LOCATION)) {
-                // Display UI and wait for user interaction
-            System.out.println("1");
-
-                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-                alertDialogBuilder.setTitle("Change Permissions in Settings");
-                alertDialogBuilder
-                        .setMessage("" +
-                                "\nUnable open Tasty Johor. \n"+"Go to SETTINGS > Permission \n"+"" +
-                                "\n Allow the Location Permission")
-                        .setCancelable(false)
-                        .setPositiveButton("SETTINGS", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                Intent intent = new Intent();
-                                intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
-                                Uri uri = Uri.fromParts("package", getPackageName(), null);
-                                intent.setData(uri);
-                                startActivityForResult(intent, 101);
-
-
-                            }
-                        });
-
-                AlertDialog alertDialog = alertDialogBuilder.create();
-                alertDialog.show();
-
-
-            } else {
-                ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION);
-
-              //  CheckProvider(activity);
-            }
-        } else
+                != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)
         {
-                CheckProvider(activity);
+            // Check Permissions Now
+            if (ActivityCompat.shouldShowRequestPermissionRationale( this, android.Manifest.permission.ACCESS_FINE_LOCATION))
+            {
+                // Display UI and wait for user interaction
+                System.out.println("1");
+                PromptPermissionManually();
+
+
+            }
+            else
+            {
+                ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION);
+                System.out.println("2");
+
+            }
+        }
+        else
+        {
+                System.out.println("3");
+                CheckProvider();
         }
 
     }
@@ -437,43 +426,100 @@ public class HomePage extends AppCompatActivity
             {
 
                 System.out.println("permission granted");
-                CheckProvider(activity);
             }
             else
             {
                 System.out.println("permission not granted");
-               // checkpermission();
-               // CheckProvider(activity);
+
+
             }
         }
     }
 
+ public void PromptPermissionManually()
+ {
+     AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+     alertDialogBuilder.setTitle("Change Permissions in Settings");
+     alertDialogBuilder
+             .setMessage("" +
+                     "\nUnable open Tasty Johor. \n"+"Go to SETTINGS > Permission \n"+"" +
+                     "\n Allow the Location Permission")
+             .setCancelable(false)
+             .setPositiveButton("SETTINGS", new DialogInterface.OnClickListener() {
+                 public void onClick(DialogInterface dialog, int id) {
+                     Intent intent = new Intent();
+                     intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                     Uri uri = Uri.fromParts("package", getPackageName(), null);
+                     intent.setData(uri);
+                     startActivityForResult(intent, 101);
 
-    public void CheckProvider(final Context context)
+
+
+                 }
+             });
+
+     AlertDialog alertDialog = alertDialogBuilder.create();
+     alertDialog.show();
+ }
+    public void CheckProvider()
     {
-        LocationManager lm = (LocationManager)context.getSystemService(Context.LOCATION_SERVICE);
+        LocationManager lm = (LocationManager)this.getSystemService(Context.LOCATION_SERVICE);
         boolean gps_enabled = false;
         boolean network_enabled = false;
 
         try {
-            gps_enabled = lm.isProviderEnabled(LocationManager.GPS_PROVIDER);
+
         } catch(Exception ex) {}
 
         try {
-            network_enabled = lm.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
-        } catch(Exception ex) {}
+        //    network_enabled = lm.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+        } catch(Exception ex) {}gps_enabled = lm.isProviderEnabled(LocationManager.GPS_PROVIDER);
 
 
-        if(!NetworkUtil.isNetworkAvailable(context))
+        if(!NetworkUtil.isNetworkAvailable(this))
         {
-            if(!network_enabled)
+
+            if(network_enabled == false)
             {
-                new AlertDialog.Builder(context)
+                new AlertDialog.Builder(this)
                         .setMessage("Network Service Disable , Please enable it")
                         .setPositiveButton("Open Network Setting", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface paramDialogInterface, int paramInt) {
-                                        context.startActivity(new Intent(Settings.ACTION_NETWORK_OPERATOR_SETTINGS));
+                                        startActivity(new Intent(Settings.ACTION_NETWORK_OPERATOR_SETTINGS));
+                                    }
+                                }
+                        )
+                        .setCancelable(false)
+                        .show();
+            }
+            if(gps_enabled ==false) {
+                // notify user
+                new AlertDialog.Builder(this)
+                        .setMessage("Location Service Disable , Please enable it")
+                        .setPositiveButton("Open Location Setting", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface paramDialogInterface, int paramInt) {
+                                        startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+                                    }
+                                }
+                        )
+                        .setCancelable(false)
+                        .show();
+            }
+        }
+        else
+        {
+
+
+            if(gps_enabled ==false) {
+                // notify user
+                new AlertDialog.Builder(this)
+                        .setMessage("Location Service Disable , Please enable it")
+                        .setPositiveButton("Open Location Setting", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface paramDialogInterface, int paramInt) {
+                                        startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
                                     }
                                 }
                         )
@@ -482,20 +528,7 @@ public class HomePage extends AppCompatActivity
             }
         }
 
-        if(!gps_enabled ) {
-            // notify user
-            new AlertDialog.Builder(context)
-                    .setMessage("Location Service Disable , Please enable it")
-                    .setPositiveButton("Open Location Setting", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface paramDialogInterface, int paramInt) {
-                                    context.startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
-                                }
-                            }
-                    )
-                    .setCancelable(false)
-                    .show();
-        }
+
     }
 
     @Override
@@ -515,7 +548,19 @@ public class HomePage extends AppCompatActivity
         super.onResume();
        // listview.setItemsCanFocus(false);
         System.out.println("RESUME");
-        checkpermission();
+     //   checkpermission();
+      //  CheckProvider();
+
+    if(firsttime==true)
+    {
+        firsttime=false;
+    }
+     else if(firsttime==false)
+    {
+       // Toast.makeText(this,"check permission",Toast.LENGTH_SHORT).show();
+       checkpermission();
+    }
+
       //  adapter.notifyDataSetChanged();
       //  listview.invalidateViews();
         if (mAdView != null) {

@@ -68,7 +68,7 @@ public class GetLocalShopListTask extends AsyncTask<Void, Integer, ArrayList<Sho
     protected ArrayList<ShopList> doInBackground(Void... params) {
         String apiUrl = ApiUrl.Domain + ApiUrl.GetLocalShopList;
         listMockData = new ArrayList<ShopList>();
-        if (NetworkUtil.isNetworkAvailable(context)) {
+        if (NetworkUtil.isNetworkAvailable(context)&& NetworkUtil.isGPSAvailable(context)) {
             String response = NetworkUtil.sendGet(apiUrl, false);
 
             try {

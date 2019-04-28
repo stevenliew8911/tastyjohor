@@ -68,7 +68,7 @@ public class GetVegetarianShopListTask extends AsyncTask<Void, Integer, ArrayLis
     protected ArrayList<ShopList> doInBackground(Void... params) {
         String apiUrl = ApiUrl.Domain + ApiUrl.GetVegetarianShopList;
         listMockData = new ArrayList<ShopList>();
-        if (NetworkUtil.isNetworkAvailable(context)) {
+        if (NetworkUtil.isNetworkAvailable(context)&& NetworkUtil.isGPSAvailable(context)) {
             String response = NetworkUtil.sendGet(apiUrl, false);
 
             try {
