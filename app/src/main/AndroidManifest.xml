@@ -2,9 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.update.food" >
 
+
     <permission
         android:name="com.update.food.permission.JPUSH_MESSAGE"
         android:protectionLevel="signature" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <uses-permission android:name="com.update.food.permission.JPUSH_MESSAGE" />
     <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
@@ -46,6 +48,9 @@
             android:screenOrientation="portrait">
         </activity>
 
+        <service android:name=".ExampleService"
+            android:permission="android.permission.BIND_JOB_SERVICE"
+            android:exported="true"/>
         <activity
             android:name="com.update.food.HomePage"
             android:screenOrientation="portrait">

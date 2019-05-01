@@ -3,7 +3,10 @@ package com.update.food;
 import android.*;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.job.JobInfo;
+import android.app.job.JobScheduler;
 import android.content.BroadcastReceiver;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -132,7 +135,8 @@ public class HomePage extends AppCompatActivity
         JPushInterface.init(this);
         //开启调试
         JPushInterface.setDebugMode(true);
-        registerMessageReceiver();
+        initJobSchedule();
+     //   registerMessageReceiver();
 
 
         StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder().detectDiskReads().detectDiskWrites().detectNetwork().penaltyLog().build());
@@ -209,48 +213,32 @@ public class HomePage extends AppCompatActivity
             }
         });
     }
-    private MessageReceiver mMessageReceiver;
-    public static final String MESSAGE_RECEIVED_ACTION = "com.example.jpushdemo.MESSAGE_RECEIVED_ACTION";
-    public static final String KEY_TITLE = "title";
-    public static final String KEY_MESSAGE = "message";
-    public static final String KEY_EXTRAS = "extras";
 
-    public void registerMessageReceiver() {
-        mMessageReceiver = new MessageReceiver();
-        IntentFilter filter = new IntentFilter();
-        filter.setPriority(IntentFilter.SYSTEM_HIGH_PRIORITY);
-        filter.addAction(MESSAGE_RECEIVED_ACTION);
-        LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver, filter);
-    }
 
-    public class MessageReceiver extends BroadcastReceiver {
 
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            try {
-                if (MESSAGE_RECEIVED_ACTION.equals(intent.getAction())) {
-                    String messge = intent.getStringExtra(KEY_MESSAGE);
-                    String extras = intent.getStringExtra(KEY_EXTRAS);
-                    StringBuilder showMsg = new StringBuilder();
-                    showMsg.append(KEY_MESSAGE + " : " + messge + "\n");
-                    if (!isEmpty(extras)) {
-                        showMsg.append(KEY_EXTRAS + " : " + extras + "\n");
-                    }
-                    showMsg.append(showMsg.toString());
-                }
-            } catch (Exception e){
-            }
+    public void initJobSchedule()
+    {
+        ComponentName componentName = new ComponentName(this,RunBackgroundService.class);
+        JobInfo jobinfo = new JobInfo.Builder(123, componentName)
+               // .setRequiresCharging(true)
+                .setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY)
+                .setPersisted(true)
+                .setPeriodic(16 * 60 * 1000)
+                .build();
+
+        JobScheduler scheduler = (JobScheduler)getSystemService(JOB_SCHEDULER_SERVICE);
+        int resultcode=scheduler.schedule(jobinfo);
+        if(resultcode == JobScheduler.RESULT_SUCCESS)
+        {
+            System.out.println("job scedule success");
         }
+        else
+        {
+            System.out.println("job scedule fail");
+        }
+
     }
-    public static boolean isEmpty(String s) {
-        if (null == s)
-            return true;
-        if (s.length() == 0)
-            return true;
-        if (s.trim().length() == 0)
-            return true;
-        return false;
-    }
+
 
 
 

@@ -81,14 +81,14 @@ public class Login_Google_Task extends AsyncTask<String, Void, String> {
 
     public void SavedSharedPreference(String username,String password,String userrole,String loginmethod)
     {
-        SharedPreferences settings = context.getSharedPreferences("logged", 0);
-        SharedPreferences.Editor editor = settings.edit();
-        editor.putString("logged","logged");
-        editor.putString("username", username);
-        editor.putString("password", password);
-        editor.putString("userrole", userrole);
-        editor.putString("loginmethod", loginmethod);
-        editor.commit();
+//        SharedPreferences settings = context.getSharedPreferences("logged", 0);
+//        SharedPreferences.Editor editor = settings.edit();
+//        editor.putString("logged","logged");
+//        editor.putString("username", username);
+//        editor.putString("password", password);
+//        editor.putString("userrole", userrole);
+//        editor.putString("loginmethod", loginmethod);
+//        editor.commit();
     }
 
 }

@@ -12,10 +12,10 @@ android {
     }
     defaultConfig {
         applicationId "com.update.food"
-        minSdkVersion 16
+        minSdkVersion 21
         targetSdkVersion 27
-        versionCode 20
-        versionName "20.0"
+        versionCode 22
+        versionName "22.0"
 
         manifestPlaceholders = [
                 JPUSH_PKGNAME : "com.update.food",
