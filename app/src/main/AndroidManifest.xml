@@ -48,7 +48,7 @@
             android:screenOrientation="portrait">
         </activity>
 
-        <service android:name=".ExampleService"
+        <service android:name=".RunBackgroundService"
             android:permission="android.permission.BIND_JOB_SERVICE"
             android:exported="true"/>
         <activity
