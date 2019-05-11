@@ -3,6 +3,9 @@ package com.update.food;
 import android.*;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.app.job.JobInfo;
 import android.app.job.JobScheduler;
 import android.content.BroadcastReceiver;
@@ -19,10 +22,12 @@ import android.graphics.drawable.AnimationDrawable;
 import android.location.LocationManager;
 import android.media.Image;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.provider.Settings;
 import android.speech.RecognizerIntent;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.GravityCompat;
@@ -53,8 +58,13 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.MobileAds;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+
+
+import com.google.firebase.messaging.FirebaseMessaging;
+import com.google.firebase.messaging.FirebaseMessagingService;
 import com.squareup.picasso.Picasso;
 import com.update.food.Categories.CafeFoodPage;
 import com.update.food.Categories.ChineseFoodPage;
@@ -70,13 +80,12 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Locale;
 
-import com.google.android.gms.ads.AdListener;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
+
+
 import com.update.food.Network.*;
 import com.update.food.Network.NetworkUtil;
 
-import cn.jpush.android.api.JPushInterface;
+
 
 /**
  * Created by Windows on 14/9/2016.
@@ -86,7 +95,7 @@ import cn.jpush.android.api.JPushInterface;
 
 public class HomePage extends AppCompatActivity
 {
-    private AdView mAdView;
+    //private AdView mAdView;
     public static Toolbar toolbarMain;
     public static DrawerLayout drawerLayoutMain;
     public static ListView listview;
@@ -132,9 +141,9 @@ public class HomePage extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_page);
-        JPushInterface.init(this);
-        //开启调试
-        JPushInterface.setDebugMode(true);
+//        JPushInterface.init(this);
+//        //开启调试
+//        JPushInterface.setDebugMode(true);
         initJobSchedule();
      //   registerMessageReceiver();
 
@@ -143,13 +152,13 @@ public class HomePage extends AppCompatActivity
        // activity=getApplicationContext();
         overridePendingTransition(R.drawable.animation_left_in, R.drawable.animation_left_out);
 
-        MobileAds.initialize(getApplicationContext(), "ca-app-pub-6849509841379714~2311660788");
-        mAdView = (AdView) findViewById(R.id.adView);
-        AdRequest adRequest = new AdRequest.Builder()
+       // MobileAds.initialize(getApplicationContext(), "ca-app-pub-6849509841379714~2311660788");
+       // mAdView = (AdView) findViewById(R.id.adView);
+       // AdRequest adRequest = new AdRequest.Builder()
               //  .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
                // .addTestDevice("C04B1BFFB0774708339BC273F8A43708")
-                .build();
-        mAdView.loadAd(adRequest);
+        //        .build();
+       // mAdView.loadAd(adRequest);
 
 
         firsttime=true;
@@ -218,11 +227,14 @@ public class HomePage extends AppCompatActivity
 
     public void initJobSchedule()
     {
+
+
         ComponentName componentName = new ComponentName(this,RunBackgroundService.class);
         JobInfo jobinfo = new JobInfo.Builder(123, componentName)
                // .setRequiresCharging(true)
                 .setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY)
                 .setPersisted(true)
+
                 .setPeriodic(16 * 60 * 1000)
                 .build();
 
@@ -386,21 +398,17 @@ public class HomePage extends AppCompatActivity
             if (ActivityCompat.shouldShowRequestPermissionRationale( this, android.Manifest.permission.ACCESS_FINE_LOCATION))
             {
                 // Display UI and wait for user interaction
-                System.out.println("1");
+
                 PromptPermissionManually();
-
-
             }
             else
             {
                 ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION);
-                System.out.println("2");
 
             }
         }
         else
         {
-                System.out.println("3");
                 CheckProvider();
         }
 
@@ -525,9 +533,9 @@ public class HomePage extends AppCompatActivity
         System.out.println("PAUSE");
     //    adapter.notifyDataSetChanged();
     //    listview.invalidateViews();
-        if (mAdView != null) {
-            mAdView.pause();
-        }
+//        if (mAdView != null) {
+//            mAdView.pause();
+//        }
         super.onPause();
     }
 
@@ -551,16 +559,16 @@ public class HomePage extends AppCompatActivity
 
       //  adapter.notifyDataSetChanged();
       //  listview.invalidateViews();
-        if (mAdView != null) {
-            mAdView.resume();
-        }
+//        if (mAdView != null) {
+//            mAdView.resume();
+//        }
     }
 
     @Override
     public void onDestroy() {
-        if (mAdView != null) {
-            mAdView.destroy();
-        }
+//        if (mAdView != null) {
+//            mAdView.destroy();
+//        }
         super.onDestroy();
     }
 }

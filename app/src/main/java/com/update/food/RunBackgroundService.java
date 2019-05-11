@@ -1,5 +1,7 @@
 package com.update.food;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.app.Service;
 import android.app.job.JobParameters;
 import android.app.job.JobService;
@@ -7,9 +9,16 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.os.Build;
 import android.os.IBinder;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.*;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 /**
  * Created by Windows on 29/4/2019.
@@ -75,13 +84,39 @@ public class RunBackgroundService extends JobService {
         dobackgroundtask(jobParameters);
         return true;
     }
-    public void dobackgroundtask(JobParameters params)
+    public void dobackgroundtask(final JobParameters params)
 
     {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                registerMessageReceiver();
+
+
+
+                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
+                {
+                    NotificationChannel channel =
+                            new NotificationChannel("MyNotification","MyNotification", NotificationManager.IMPORTANCE_DEFAULT);
+
+                    NotificationManager manager = getSystemService(NotificationManager.class);
+                    manager.createNotificationChannel(channel);
+
+                }
+
+                FirebaseMessaging.getInstance().subscribeToTopic("general")
+                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                String msg = "Successful";
+                                if (!task.isSuccessful()) {
+                                    msg = "failed";
+                                }
+
+                                System.out.println(msg);
+                            }
+                        });
+
+
 
             }
         }).start();
@@ -89,6 +124,8 @@ public class RunBackgroundService extends JobService {
 
     @Override
     public boolean onStopJob(JobParameters jobParameters) {
-        return false;
+        System.out.println("JOBS  STOP");
+
+        return true;
     }
 }
